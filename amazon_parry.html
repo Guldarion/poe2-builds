@@ -268,6 +268,50 @@
   }
   .tt .meta-row b{ color:#dcdacf }
   .tt .desc{ color:#c4c2b8; margin:0 }
+
+  /* ══════════ TREE SECTION TABS ══════════ */
+  .tree-tabs{
+    display:flex; flex-wrap:wrap; gap:6px;
+    padding:8px; margin:0 0 14px;
+    background:var(--bg-2); border:1px solid var(--line); border-radius:10px;
+  }
+  .tt-btn{
+    flex:1; min-width:160px;
+    padding:11px 14px; font:600 13px/1 inherit;
+    background:transparent; color:var(--muted);
+    border:0; border-radius:6px; cursor:pointer;
+    transition:all .15s ease;
+  }
+  .tt-btn:hover{ color:var(--text); background:rgba(255,255,255,.04) }
+  .tt-btn.active{
+    color:var(--gold-2); background:linear-gradient(180deg,rgba(212,162,74,.22),rgba(212,162,74,.05));
+    box-shadow:inset 0 -2px 0 var(--gold);
+  }
+  .tt-panel{ display:none }
+  .tt-panel.active{ display:block }
+
+  .tree-actions{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px }
+  .btn-gold{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:9px 14px; border-radius:7px;
+    background:linear-gradient(180deg,rgba(212,162,74,.25),rgba(212,162,74,.1));
+    border:1px solid rgba(212,162,74,.5); color:var(--gold-2);
+    font-weight:600; font-size:13px; text-decoration:none;
+    transition:all .15s ease;
+  }
+  .btn-gold:hover{ background:linear-gradient(180deg,rgba(212,162,74,.35),rgba(212,162,74,.15)); color:#fff; border-color:var(--gold) }
+  .btn-gold.ghost{ background:transparent; color:var(--muted); border-color:var(--line) }
+  .btn-gold.ghost:hover{ color:var(--text); border-color:rgba(212,162,74,.4) }
+
+  .howto-pob{ margin-top:14px; background:rgba(0,0,0,.25); border:1px solid var(--line); border-radius:8px; padding:0 }
+  .howto-pob > summary{ cursor:pointer; padding:12px 14px; font-weight:600; color:var(--gold-2); user-select:none; list-style:none }
+  .howto-pob > summary::-webkit-details-marker{ display:none }
+  .howto-pob > summary::before{ content:"▶  "; color:var(--gold); font-size:10px }
+  .howto-pob[open] > summary::before{ content:"▼  " }
+  .howto-body{ padding:0 14px 14px; color:#dcdacf; font-size:13px; line-height:1.6 }
+  .howto-body h4{ color:var(--gold); margin:10px 0 6px; font-size:13px; text-transform:uppercase; letter-spacing:.5px }
+  .howto-body code{ background:rgba(0,0,0,.4); padding:1px 6px; border-radius:3px; color:var(--gold-2); font-size:12px }
+  .howto-body ol, .howto-body ul{ margin:6px 0 0 18px; padding:0 }
 </style>
 </head>
 <body>
@@ -1277,10 +1321,85 @@
   <!-- ════════════════════════ PASSIVE TREE ════════════════════════ -->
   <section id="tree">
     <h2>5. Дерево пассивов</h2>
-    <div class="panel">
-      <div class="note warn">Ссылку <code>poe.ninja/poe2/passive-skill-tree/FBgf3Ci1iYw26kmSBi3VRVh</code> прочитать программно не получилось — это SPA-страница, отдаёт только заголовок. Ниже — карта обязательных нод; распределите точки в редакторе.</div>
 
-      <h3 style="margin-top:16px">Ядро (оба варианта)</h3>
+    <!-- ── Tabs: визуальный планер / скриншот / карта нод ── -->
+    <div class="tree-tabs">
+      <button class="tt-btn active" data-tt-tab="ninja">poe.ninja (интерактив)</button>
+      <button class="tt-btn" data-tt-tab="screenshot">Скриншот из PoB</button>
+      <button class="tt-btn" data-tt-tab="manual">Карта нод (текст)</button>
+    </div>
+
+    <!-- ── 1. poe.ninja iframe ── -->
+    <div class="tt-panel active" data-tt-panel="ninja">
+      <div class="panel" style="padding:0;overflow:hidden">
+        <iframe src="https://poe.ninja/poe2/passive-skill-tree/FBgf3Ci1iYw26kmSBi3VRVh"
+                title="Passive Skill Tree (poe.ninja)"
+                loading="lazy"
+                style="display:block;width:100%;height:720px;border:0;background:#0a0a0d"></iframe>
+      </div>
+      <div class="note info" style="margin-top:10px">
+        Если iframe пустой / не загружается — откройте <a href="https://poe.ninja/poe2/passive-skill-tree/FBgf3Ci1iYw26kmSBi3VRVh" target="_blank" rel="noopener">дерево в новой вкладке</a>. poe.ninja может блокировать встраивание; в этом случае используйте <b>вкладку «Скриншот из PoB»</b>.
+      </div>
+      <div class="tree-actions">
+        <a class="btn-gold" href="https://poe.ninja/poe2/passive-skill-tree/FBgf3Ci1iYw26kmSBi3VRVh" target="_blank" rel="noopener">↗ Открыть в poe.ninja</a>
+        <a class="btn-gold ghost" href="https://maxroll.gg/poe2/passive-tree" target="_blank" rel="noopener">↗ Maxroll Planner</a>
+        <a class="btn-gold ghost" href="https://poe2planner.org/" target="_blank" rel="noopener">↗ poe2planner.org</a>
+      </div>
+    </div>
+
+    <!-- ── 2. Static PoB screenshot ── -->
+    <div class="tt-panel" data-tt-panel="screenshot">
+      <div class="panel">
+        <h3 style="margin-top:0">Скриншот дерева из Path of Building</h3>
+        <picture>
+          <source srcset="img/passive-tree.webp" type="image/webp">
+          <source srcset="img/passive-tree.png" type="image/png">
+          <img src="img/passive-tree.png" alt="Passive Skill Tree" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
+               style="width:100%;max-width:1200px;border:1px solid var(--line);border-radius:10px;display:block;margin:0 auto">
+        </picture>
+        <div class="note warn" style="display:none">
+          <b>Скриншот не загружен.</b> Чтобы добавить дерево как картинку:
+          <ol style="margin:8px 0 0 18px;padding:0">
+            <li>Откройте Path of Building Community (PoE2) — у вас он установлен в <code>C:\Users\user\claudework\Pob\</code></li>
+            <li>Вкладка <b>Tree</b> → нажмите <b>Import Tree</b> → вставьте URL <code>https://poe.ninja/poe2/passive-skill-tree/FBgf3Ci1iYw26kmSBi3VRVh</code></li>
+            <li>Сделайте скриншот области с деревом (Win+Shift+S) и сохраните как <code>poe2-builds/img/passive-tree.png</code></li>
+            <li>Закоммитьте: <code>git add img/passive-tree.png && git commit -m "Add passive tree screenshot" && git push</code></li>
+          </ol>
+          <p style="margin-top:8px">После этого в Pages автоматически появится изображение здесь.</p>
+        </div>
+
+        <details class="howto-pob">
+          <summary>📖 Как импортировать в PoB и сделать скриншот</summary>
+          <div class="howto-body">
+            <h4>Способ A — через URL (быстро)</h4>
+            <ol>
+              <li>Запустите <code>Path of Building-PoE2.exe</code> из <code>C:\Users\user\claudework\Pob\Path of Building Community (PoE2)\</code></li>
+              <li>Вкладка <b>Import / Export Build</b> → поле <b>Build code</b> или <b>Import from URL</b></li>
+              <li>Вставьте: <code style="word-break:break-all">https://poe.ninja/poe2/passive-skill-tree/FBgf3Ci1iYw26kmSBi3VRVh</code></li>
+            </ol>
+            <h4>Способ B — построить вручную в PoB</h4>
+            <ol>
+              <li>New Build → Class: <b>Huntress</b> → Ascendancy: <b>Amazon</b></li>
+              <li>Вкладка <b>Tree</b>. Кликом аллоцируйте узлы из таблицы «Карта нод» ниже</li>
+              <li>Зум: колесо мыши. Pan: средняя кнопка или зажать левую вне ноды</li>
+            </ol>
+            <h4>Скриншот</h4>
+            <ul>
+              <li><b>Win + Shift + S</b> — выделить и сохранить в буфер (Windows)</li>
+              <li>Откройте Paint / любой редактор → Ctrl+V → сохраните как <code>passive-tree.png</code></li>
+              <li>Положите в <code>poe2-builds/img/</code>, закоммитьте, запушьте</li>
+            </ul>
+            <p>Расширенный формат: <code>img/passive-tree-v1-bleed.png</code> и <code>img/passive-tree-v2-lightning.png</code> для двух вариантов отдельно.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- ── 3. Manual node map ── -->
+    <div class="tt-panel" data-tt-panel="manual">
+    <div class="panel">
+
+      <h3 style="margin-top:0">Ядро (оба варианта)</h3>
       <table>
         <thead><tr><th>Нода / кластер</th><th>Зачем</th></tr></thead>
         <tbody>
@@ -1325,6 +1444,7 @@
         <li><b>20–50:</b> добираем Bleed-кластер (В1) или Lightning-кластер (В2), потом крит</li>
         <li><b>50+:</b> финализируем — <i>Inevitable Rupture</i> + Mastery (В1), или <i>Heart of Thunder</i> + Heartstopper (В2)</li>
       </ol>
+    </div>
     </div>
   </section>
 
@@ -1374,7 +1494,7 @@
 </footer>
 
 <script>
-// Stage tabs switcher
+// Stage tabs switcher (per variant article)
 document.querySelectorAll('.stage-tabs').forEach(group => {
   const article = group.closest('article');
   group.querySelectorAll('button').forEach(btn => {
@@ -1387,6 +1507,35 @@ document.querySelectorAll('.stage-tabs').forEach(group => {
     });
   });
 });
+
+// Tree section tabs switcher (poe.ninja iframe / screenshot / manual map)
+(function(){
+  const root = document.getElementById('tree');
+  if(!root) return;
+  const btns = root.querySelectorAll('.tt-btn');
+  const panels = root.querySelectorAll('.tt-panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.ttTab;
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.dataset.ttPanel === id));
+    });
+  });
+})();
+
+// Iframe-fallback: if poe.ninja refuses framing, auto-suggest screenshot tab
+(function(){
+  const frame = document.querySelector('iframe[src*="poe.ninja"]');
+  if(!frame) return;
+  let loaded = false;
+  frame.addEventListener('load', () => { loaded = true; });
+  setTimeout(() => {
+    if(loaded) return;
+    const note = frame.closest('.tt-panel').querySelector('.note.info');
+    if(note) note.style.background = 'rgba(195,59,59,.12)';
+    if(note) note.style.borderLeftColor = '#c33b3b';
+  }, 6000);
+})();
 </script>
 </body>
 </html>
