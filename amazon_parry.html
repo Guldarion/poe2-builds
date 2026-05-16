@@ -152,6 +152,122 @@
 
   /* Anchor offset for sticky header */
   section[id]{scroll-margin-top:18px}
+
+  /* ══════════ STAGE TABS (Mobalytics-style) ══════════ */
+  .stage-tabs{
+    display:flex; flex-wrap:wrap; gap:6px;
+    padding:8px; margin:14px 0 0;
+    background:var(--bg-2); border:1px solid var(--line); border-radius:10px;
+  }
+  .stage-tabs button{
+    flex:1; min-width:130px;
+    padding:10px 14px; font:600 13px/1 inherit;
+    background:transparent; color:var(--muted);
+    border:0; border-radius:6px; cursor:pointer;
+    transition:all .15s ease; position:relative;
+  }
+  .stage-tabs button:hover{ color:var(--text); background:rgba(255,255,255,.04) }
+  .stage-tabs button.active{
+    color:var(--gold-2); background:linear-gradient(180deg,rgba(212,162,74,.22),rgba(212,162,74,.05));
+    box-shadow:inset 0 -2px 0 var(--gold);
+  }
+  .stage-tabs button .tab-sub{ display:block; font-weight:400; font-size:11px; color:var(--muted); margin-top:3px }
+  .stage-tabs button.active .tab-sub{ color:var(--gold-2); opacity:.8 }
+
+  .stage-panel{ display:none; padding:18px 22px 22px; border-top:1px solid var(--line) }
+  .stage-panel.active{ display:block }
+
+  /* ══════════ SLOT CARDS (Mobalytics-style: main skill + supports) ══════════ */
+  .slots{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-top:10px }
+  .slot{
+    background:rgba(0,0,0,.28); border:1px solid var(--line); border-radius:10px;
+    padding:12px; display:flex; flex-direction:column; gap:8px;
+  }
+  .slot-main{
+    display:flex; align-items:center; gap:10px;
+    padding:10px; border:1px solid var(--line); border-radius:8px;
+    background:linear-gradient(90deg,rgba(212,162,74,.14),rgba(0,0,0,.25));
+    position:relative; cursor:help;
+  }
+  .slot-main .num{
+    position:absolute; bottom:-6px; right:-6px;
+    width:22px; height:22px; border-radius:50%;
+    background:var(--gold); color:#1a1108; font-weight:700; font-size:12px;
+    display:grid; place-items:center; box-shadow:0 2px 4px rgba(0,0,0,.6);
+    font-family:"Cinzel",Georgia,serif;
+  }
+  .slot-main .ico-wrap{
+    flex:0 0 44px; width:44px; height:44px; border-radius:8px;
+    background:radial-gradient(circle at 50% 30%,#26314a,#0a0a0d 80%);
+    border:1px solid rgba(255,255,255,.1);
+    display:grid; place-items:center;
+  }
+  .slot-main .ico-wrap img{ width:38px; height:38px; filter:brightness(1.2) contrast(1.05) }
+  .slot-main .nm{ font-weight:700; color:#fff; font-size:14px; flex:1; min-width:0 }
+  .slot-main.gold .nm{ color:var(--gold-2) }
+
+  .slot-supports{ display:flex; flex-direction:column; gap:5px }
+  .slot-support{
+    display:flex; align-items:center; gap:9px;
+    padding:6px 10px; border-radius:6px;
+    background:rgba(255,255,255,.025); border:1px solid rgba(255,255,255,.05);
+    position:relative; cursor:help;
+    transition:background .12s ease;
+  }
+  .slot-support:hover{ background:rgba(212,162,74,.08); border-color:rgba(212,162,74,.3) }
+  .slot-support .ico-wrap{
+    flex:0 0 30px; width:30px; height:30px; border-radius:50%;
+    background:radial-gradient(circle at 50% 30%,#1f2538,#08090d 80%);
+    border:1px solid rgba(255,255,255,.08);
+    display:grid; place-items:center;
+  }
+  .slot-support .ico-wrap img{ width:26px; height:26px; filter:brightness(1.2) }
+  .slot-support .nm{ font-size:12.5px; color:#dcdacf; flex:1; min-width:0 }
+  .slot-support .nm small{ color:var(--muted); font-size:10.5px; margin-left:4px }
+
+  /* ══════════ HOVER TOOLTIPS (skill info popover) ══════════ */
+  .tt{
+    position:absolute; bottom:calc(100% + 8px); left:0;
+    width:min(320px, 92vw); padding:12px 14px;
+    background:#0e0f15; border:1px solid var(--gold);
+    border-radius:8px; box-shadow:0 12px 30px rgba(0,0,0,.7);
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .12s ease, transform .12s ease;
+    transform:translateY(4px); z-index:50;
+    font-size:12.5px; line-height:1.5;
+  }
+  .tt::after{
+    content:""; position:absolute; top:100%; left:24px;
+    border:7px solid transparent; border-top-color:var(--gold);
+  }
+  .slot-main:hover .tt, .slot-support:hover .tt{
+    opacity:1; visibility:visible; transform:translateY(0);
+  }
+  /* prevent right-edge clipping for chips near right side */
+  .slot:last-child .tt, .slots > .slot:nth-child(3n) .tt{ left:auto; right:0 }
+  .slot:last-child .tt::after, .slots > .slot:nth-child(3n) .tt::after{ left:auto; right:24px }
+  .tt h5{
+    font-family:"Cinzel",Georgia,serif; color:var(--gold-2);
+    font-size:15px; margin:0 0 6px;
+  }
+  .tt .tags{
+    display:flex; flex-wrap:wrap; gap:4px; margin-bottom:8px;
+  }
+  .tt .tag{
+    padding:2px 8px; border-radius:999px;
+    background:rgba(74,163,212,.15); color:#7ec8ee;
+    border:1px solid rgba(74,163,212,.3); font-size:10.5px; font-weight:600;
+    text-transform:uppercase; letter-spacing:.4px;
+  }
+  .tt .tag.sup{ background:rgba(155,127,214,.15); color:#bfa7e8; border-color:rgba(155,127,214,.3) }
+  .tt .tag.passive{ background:rgba(195,59,59,.15); color:#ff9b9b; border-color:rgba(195,59,59,.3) }
+  .tt .tag.buff{ background:rgba(90,168,97,.15); color:#9dd5a4; border-color:rgba(90,168,97,.3) }
+  .tt .meta-row{
+    color:var(--muted); font-size:11px; margin-bottom:8px;
+    padding-bottom:8px; border-bottom:1px solid rgba(255,255,255,.06);
+  }
+  .tt .meta-row b{ color:#dcdacf }
+  .tt .desc{ color:#c4c2b8; margin:0 }
 </style>
 </head>
 <body>
@@ -260,10 +376,14 @@
         </div>
       </header>
 
-      <!-- STAGE 1 -->
-      <div class="stage">
-        <h4><span class="stamp">Стадия 1 · ур. 1–20</span> Кампания, акт 1–начало 2</h4>
+      <div class="stage-tabs" data-tabs="v1">
+        <button class="active" data-stage="v1-1">Стадия 1<span class="tab-sub">ур. 1–20 · кампания</span></button>
+        <button data-stage="v1-2">Стадия 2<span class="tab-sub">ур. 20–50 · переход</span></button>
+        <button data-stage="v1-3">Стадия 3<span class="tab-sub">ур. 50+ · эндгейм</span></button>
+      </div>
 
+      <!-- STAGE 1 -->
+      <div class="stage-panel active" data-stage="v1-1">
         <h3>Оружие</h3>
         <div class="grid-4">
           <div class="item"><div class="ico"><img src="img/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear01.webp" alt=""></div>
@@ -286,26 +406,104 @@
             <div class="meta"><div class="name">Pathfinder Coat</div><div class="sub"><span class="lvl">ур. 11</span>78 Eva · 21 Dex</div></div></div>
         </div>
 
-        <h3 style="margin-top:18px">Скиллы и сапорты</h3>
-        <div class="gems">
-          <span class="gem main"><img src="img/Art/2DItems/Gems/New/BloodHuntSkillGem.webp" alt="">Rake</span>
-          <span class="gem red"><img src="img/Art/2dart/skillicons/support/ragesupport.webp" alt="">Martial Tempo</span>
-          <span class="gem"><img src="img/Art/2dart/skillicons/BloodLacerate.webp" alt="">Lacerate</span>
-        </div>
-        <div class="gems">
-          <span class="gem main"><img src="img/Art/2dart/skillicons/4k/huntressbucklerparry.webp" alt="">Parry</span>
-          <span class="gem red"><img src="img/Art/2DItems/Gems/New/NewSupport/RetortSupportGem.webp" alt="">Frenzied Riposte</span>
-        </div>
-        <div class="gems">
-          <span class="gem green"><img src="img/Art/2DItems/Gems/New/ImpaleSkillGem.webp" alt="">Disengage</span>
-          <span class="gem"><img src="img/Art/2DItems/Gems/New/RemoteMineSpearSkillGem.webp" alt="">Explosive Spear</span>
-          <span class="gem"><img src="img/Art/2dart/skillicons/support/overpowersupport.webp" alt="">Overabundance</span>
+        <h3 style="margin-top:18px">Skill setup · 3 слота</h3>
+        <div class="slots">
+
+          <div class="slot">
+            <div class="slot-main gold" data-skill="rake">
+              <span class="num">1</span>
+              <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/BloodHuntSkillGem.webp" alt=""></div>
+              <span class="nm">Rake</span>
+              <div class="tt"><h5>Rake</h5>
+                <div class="tags"><span class="tag">Attack</span><span class="tag">Melee</span><span class="tag">AoE</span><span class="tag">Strike</span><span class="tag">Physical</span></div>
+                <div class="meta-row"><b>Время атаки:</b> 0.4s · <b>Урон:</b> 50–181% от базы</div>
+                <p class="desc">Рывок к врагу с рассекающим ударом. Всегда накладывает Bleeding на все цели в зоне поражения.</p>
+              </div>
+            </div>
+            <div class="slot-supports">
+              <div class="slot-support" data-skill="rapid">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/FasterAttackSupportGem.webp" alt=""></div>
+                <span class="nm">Rapid Attacks I <small>(ex Martial Tempo)</small></span>
+                <div class="tt"><h5>Rapid Attacks I</h5>
+                  <div class="tags"><span class="tag sup">Support</span><span class="tag">Attack</span></div>
+                  <div class="meta-row"><b>Lvl:</b> 1 · <b>+5 Dex</b> · <b>Мана:</b> 100%</div>
+                  <p class="desc">Поддерживает атаки. Скиллы атакуют быстрее: <b>+15% Attack Speed</b>. Maxroll называет это «Martial Tempo».</p>
+                </div>
+              </div>
+              <div class="slot-support" data-skill="lacerate">
+                <div class="ico-wrap"><img src="img/Art/2dart/skillicons/BloodLacerate.webp" alt=""></div>
+                <span class="nm">Lacerate <small>(skill)</small></span>
+                <div class="tt"><h5>Lacerate (Blood Stance)</h5>
+                  <div class="tags"><span class="tag">Skill</span><span class="tag">Attack</span><span class="tag">Melee</span><span class="tag">AoE</span></div>
+                  <div class="meta-row"><b>Тип:</b> отдельный скилл (cleave). Связка с Rake — двойной режущий замах с увеличенным bleed-потенциалом.</div>
+                  <p class="desc">Двойной размах копьём перед собой; режет всех в дуге. Идёт в стойке Blood Stance.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slot">
+            <div class="slot-main gold" data-skill="parry">
+              <span class="num">2</span>
+              <div class="ico-wrap"><img src="img/Art/2dart/skillicons/4k/huntressbucklerparry.webp" alt=""></div>
+              <span class="nm">Parry</span>
+              <div class="tt"><h5>Parry</h5>
+                <div class="tags"><span class="tag">Skill</span><span class="tag">Attack</span><span class="tag">Melee</span><span class="tag">Buckler</span></div>
+                <div class="meta-row"><b>Время атаки:</b> 0.75s · <b>Урон:</b> 65% · <b>Crit:</b> 5%</div>
+                <p class="desc">Ловит первый ближний удар (1 м) или снаряд (1.5 м), блокирует его и накладывает <b>Parried</b> (+50% получаемого Attack-урона на 2 сек).</p>
+              </div>
+            </div>
+            <div class="slot-supports">
+              <div class="slot-support" data-skill="riposte">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/RetortSupportGem.webp" alt=""></div>
+                <span class="nm">Frenzied Riposte</span>
+                <div class="tt"><h5>Frenzied Riposte</h5>
+                  <div class="tags"><span class="tag sup">Support</span><span class="tag">Attack</span></div>
+                  <div class="meta-row"><b>Lvl:</b> 1</div>
+                  <p class="desc">Атаки расходуют Parried-дебафф при ударе и дают вам <b>Frenzy-заряд</b>. Не работает на скиллах, которые уже расходуют этот дебафф.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slot">
+            <div class="slot-main" data-skill="disengage">
+              <span class="num">3</span>
+              <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/ImpaleSkillGem.webp" alt=""></div>
+              <span class="nm">Disengage</span>
+              <div class="tt"><h5>Disengage</h5>
+                <div class="tags"><span class="tag">Skill</span><span class="tag">Attack</span><span class="tag">Melee</span><span class="tag">Travel</span></div>
+                <div class="meta-row"><b>Время:</b> 1.5s · <b>Урон:</b> 85–308% (start), 120–490% (shockwave)</div>
+                <p class="desc">Прыжок назад со взрывом копий из земли. Расходует Parried-дебафф на shockwave и даёт Frenzy-заряд. Во время прыжка хиты и снаряды промахиваются.</p>
+              </div>
+            </div>
+            <div class="slot-supports">
+              <div class="slot-support" data-skill="explosive">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/RemoteMineSpearSkillGem.webp" alt=""></div>
+                <span class="nm">Explosive Spear <small>(skill)</small></span>
+                <div class="tt"><h5>Explosive Spear</h5>
+                  <div class="tags"><span class="tag">Skill</span><span class="tag">Attack</span><span class="tag">Projectile</span><span class="tag">Fire</span><span class="tag">AoE</span></div>
+                  <div class="meta-row"><b>Время:</b> 80% · <b>Урон:</b> 135–489% (explosion) / 200–724% (Frenzy)</div>
+                  <p class="desc">Бросок копья, протыкает врагов и втыкается в землю. Взрыв через 2.5 сек или мгновенно при расходе Frenzy-заряда. Оставляет Ignited Ground.</p>
+                </div>
+              </div>
+              <div class="slot-support" data-skill="overabund">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/IncreaseLimitSupportGem.webp" alt=""></div>
+                <span class="nm">Overabundance I</span>
+                <div class="tt"><h5>Overabundance I</h5>
+                  <div class="tags"><span class="tag sup">Support</span><span class="tag">Limit</span><span class="tag">Duration</span></div>
+                  <div class="meta-row"><b>Lvl:</b> 1 · <b>+5 Dex</b></div>
+                  <p class="desc">+1 к лимиту одновременно активных эффектов (можно положить 2 Explosive Spears одновременно), но <b>-50%</b> к длительности.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
       <!-- STAGE 2 -->
-      <div class="stage">
-        <h4><span class="stamp">Стадия 2 · ур. 20–50</span> Конец кампании / переход в эндгейм</h4>
+      <div class="stage-panel" data-stage="v1-2">
 
         <h3>Оружие — переход к bleed-имплиситам</h3>
         <div class="grid-4">
@@ -339,27 +537,99 @@
           <li><b>Пояс:</b> +Life, резисты, % Evasion</li>
         </ul>
 
-        <h3 style="margin-top:14px">Скилл-сетап</h3>
-        <div class="gems">
-          <span class="gem main"><img src="img/Art/2DItems/Gems/New/BloodHuntSkillGem.webp" alt="">Rake</span>
-          <span class="gem"><img src="img/Art/2dart/skillicons/support/ragesupport.webp" alt="">Martial Tempo</span>
-          <span class="gem red"><img src="img/Art/2DItems/Gems/New/NewSupport/ChanceToBleedSupportGem.webp" alt="">BleedI</span>
-          <span class="gem red"><img src="img/Art/2dart/skillicons/BloodLacerate.webp" alt="">Lacerate</span>
-        </div>
-        <div class="gems">
-          <span class="gem main"><img src="img/Art/2dart/skillicons/4k/huntressbucklerparry.webp" alt="">Parry</span>
-          <span class="gem red"><img src="img/Art/2DItems/Gems/New/NewSupport/RetortSupportGem.webp" alt="">Frenzied Riposte</span>
-        </div>
-        <div class="gems">
-          <span class="gem green"><img src="img/Art/2DItems/Gems/New/ImpaleSkillGem.webp" alt="">Disengage</span>
-          <span class="gem blue"><img src="img/Art/2DItems/Gems/New/WindDancerSkillGem.webp" alt="">Wind Dancer (аура)</span>
-          <span class="gem red"><img src="img/Art/2DItems/Gems/New/HeraldofBloodSkillGem.webp" alt="">Herald of Blood</span>
+        <h3 style="margin-top:14px">Skill setup — 3 слота</h3>
+        <div class="slots">
+
+          <div class="slot">
+            <div class="slot-main gold" data-skill="rake">
+              <span class="num">1</span>
+              <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/BloodHuntSkillGem.webp" alt=""></div>
+              <span class="nm">Rake</span>
+              <div class="tt"><h5>Rake</h5>
+                <div class="tags"><span class="tag">Attack</span><span class="tag">Melee</span><span class="tag">AoE</span><span class="tag">Physical</span></div>
+                <div class="meta-row"><b>Время:</b> 0.4s · <b>Урон:</b> 50–181%</div>
+                <p class="desc">Рывок с рассекающим ударом. Всегда накладывает Bleeding.</p>
+              </div>
+            </div>
+            <div class="slot-supports">
+              <div class="slot-support" data-skill="rapid">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/FasterAttackSupportGem.webp" alt=""></div>
+                <span class="nm">Rapid Attacks I</span>
+                <div class="tt"><h5>Rapid Attacks I (Martial Tempo)</h5>
+                  <div class="tags"><span class="tag sup">Support</span><span class="tag">Attack</span></div>
+                  <p class="desc"><b>+15% Attack Speed</b>.</p></div>
+              </div>
+              <div class="slot-support" data-skill="bleed1">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/ChanceToBleedSupportGem.webp" alt=""></div>
+                <span class="nm">Chance to Bleed I <small>(Bleed)</small></span>
+                <div class="tt"><h5>Chance to Bleed I</h5>
+                  <div class="tags"><span class="tag sup">Support</span><span class="tag">Attack</span><span class="tag">Bleed</span></div>
+                  <p class="desc">Поддерживает атаки: шанс наложить Bleeding + увеличенная магнитуда Bleed.</p></div>
+              </div>
+              <div class="slot-support" data-skill="lacerate">
+                <div class="ico-wrap"><img src="img/Art/2dart/skillicons/BloodLacerate.webp" alt=""></div>
+                <span class="nm">Lacerate <small>(skill)</small></span>
+                <div class="tt"><h5>Lacerate (Blood Stance)</h5>
+                  <div class="tags"><span class="tag">Skill</span><span class="tag">Attack</span><span class="tag">AoE</span></div>
+                  <p class="desc">Двойной режущий замах копьём в дуге.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slot">
+            <div class="slot-main gold" data-skill="parry">
+              <span class="num">2</span>
+              <div class="ico-wrap"><img src="img/Art/2dart/skillicons/4k/huntressbucklerparry.webp" alt=""></div>
+              <span class="nm">Parry</span>
+              <div class="tt"><h5>Parry</h5>
+                <div class="tags"><span class="tag">Skill</span><span class="tag">Attack</span><span class="tag">Melee</span></div>
+                <div class="meta-row"><b>Время:</b> 0.75s · <b>Урон:</b> 65%</div>
+                <p class="desc">Ловит первый удар по вам, накладывает Parried (+50% Attack-урона на цель, 2с).</p></div>
+            </div>
+            <div class="slot-supports">
+              <div class="slot-support" data-skill="riposte">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/RetortSupportGem.webp" alt=""></div>
+                <span class="nm">Frenzied Riposte</span>
+                <div class="tt"><h5>Frenzied Riposte</h5>
+                  <div class="tags"><span class="tag sup">Support</span><span class="tag">Attack</span></div>
+                  <p class="desc">Расходует Parried на Frenzy-заряд при ударе.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slot">
+            <div class="slot-main" data-skill="disengage">
+              <span class="num">3</span>
+              <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/ImpaleSkillGem.webp" alt=""></div>
+              <span class="nm">Disengage</span>
+              <div class="tt"><h5>Disengage</h5>
+                <div class="tags"><span class="tag">Skill</span><span class="tag">Attack</span><span class="tag">Travel</span></div>
+                <p class="desc">Прыжок назад со взрывом копий. Расходует Parried на shockwave + Frenzy-заряд.</p></div>
+            </div>
+            <div class="slot-supports">
+              <div class="slot-support" data-skill="wind-dancer">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/WindDancerSkillGem.webp" alt=""></div>
+                <span class="nm">Wind Dancer <small>(skill)</small></span>
+                <div class="tt"><h5>Wind Dancer</h5>
+                  <div class="tags"><span class="tag buff">Buff</span><span class="tag">Persistent</span><span class="tag">AoE</span></div>
+                  <div class="meta-row"><b>Reservation:</b> 30 Spirit</div>
+                  <p class="desc">Накапливает 3 стадии (+10% Eva каждая). При ударе по вам — расход в Gale Force (AoE-волна).</p></div>
+              </div>
+              <div class="slot-support" data-skill="herald-blood">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/HeraldofBloodSkillGem.webp" alt=""></div>
+                <span class="nm">Herald of Blood <small>(skill)</small></span>
+                <div class="tt"><h5>Herald of Blood</h5>
+                  <div class="tags"><span class="tag buff">Buff</span><span class="tag">Persistent</span></div>
+                  <p class="desc">Кровящие враги взрываются при смерти, нанося физ. урон в AoE.</p></div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
       <!-- STAGE 3 -->
-      <div class="stage">
-        <h4><span class="stamp">Стадия 3 · ур. 50+</span> Эндгейм / мапы</h4>
+      <div class="stage-panel" data-stage="v1-3">
 
         <h3>Оружие — топ-копья</h3>
         <div class="grid-4">
@@ -383,27 +653,120 @@
             <div class="meta"><div class="name gold">Exquisite Vest ★</div><div class="sub">ур. 65 · <b>487 Eva</b> (топ)</div></div></div>
         </div>
 
-        <h3 style="margin-top:18px">Полный скилл-сетап (6L Rake)</h3>
-        <div class="gems">
-          <span class="gem main"><img src="img/Art/2DItems/Gems/New/BloodHuntSkillGem.webp" alt="">Rake</span>
-          <span class="gem red"><img src="img/Art/2DItems/Gems/New/NewSupport/ChanceToBleedSupportGem.webp" alt="">BleedIV</span>
-          <span class="gem"><img src="img/Art/2dart/skillicons/support/ragesupport.webp" alt="">Martial Tempo</span>
-          <span class="gem red"><img src="img/Art/2DItems/Gems/New/NewSupport/BrutalitySupportGem.webp" alt="">Brutality</span>
-          <span class="gem"><img src="img/Art/2DItems/Gems/New/NewSupport/ConcentratedEffectSupportGem.webp" alt="">Conc. Effect</span>
-          <span class="gem red"><img src="img/Art/2dart/skillicons/passives/Blood2.webp" alt="">Inev. Rupture</span>
+        <h3 style="margin-top:18px">Полный скилл-сетап (6L Rake) — 3 слота</h3>
+        <div class="slots">
+
+          <div class="slot">
+            <div class="slot-main gold" data-skill="rake">
+              <span class="num">1</span>
+              <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/BloodHuntSkillGem.webp" alt=""></div>
+              <span class="nm">Rake (6L)</span>
+              <div class="tt"><h5>Rake — основной DPS</h5>
+                <div class="tags"><span class="tag">Attack</span><span class="tag">Melee</span><span class="tag">AoE</span><span class="tag">Physical</span></div>
+                <p class="desc">6-link Rake — главный носитель Bleed-DoT. Все 5 саппортов работают на bleed-магнитуду и площадь.</p></div>
+            </div>
+            <div class="slot-supports">
+              <div class="slot-support" data-skill="bleed4">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/ChanceToBleedSupportGem.webp" alt=""></div>
+                <span class="nm">Chance to Bleed IV</span>
+                <div class="tt"><h5>Chance to Bleed IV</h5>
+                  <div class="tags"><span class="tag sup">Support</span><span class="tag">Bleed</span></div>
+                  <p class="desc">Топовый Bleed-саппорт: высокий шанс наложить и большая магнитуда.</p></div>
+              </div>
+              <div class="slot-support" data-skill="rapid">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/FasterAttackSupportGem.webp" alt=""></div>
+                <span class="nm">Rapid Attacks I</span>
+                <div class="tt"><h5>Rapid Attacks I</h5>
+                  <div class="tags"><span class="tag sup">Support</span></div>
+                  <p class="desc">+15% Attack Speed для Rake (= больше bleed-стаков в секунду).</p></div>
+              </div>
+              <div class="slot-support" data-skill="brutality">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/BrutalitySupportGem.webp" alt=""></div>
+                <span class="nm">Brutality</span>
+                <div class="tt"><h5>Brutality</h5>
+                  <div class="tags"><span class="tag sup">Support</span><span class="tag">Physical</span></div>
+                  <p class="desc">Больше Physical Damage, но запрещает наносить нефизический урон.</p></div>
+              </div>
+              <div class="slot-support" data-skill="conc-eff">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/ConcentratedEffectSupportGem.webp" alt=""></div>
+                <span class="nm">Concentrated Effect</span>
+                <div class="tt"><h5>Concentrated Effect</h5>
+                  <div class="tags"><span class="tag sup">Support</span><span class="tag">AoE</span></div>
+                  <p class="desc">Меньшая зона действия, но значительно больше урона в этой зоне.</p></div>
+              </div>
+              <div class="slot-support" data-skill="inev-rupture">
+                <div class="ico-wrap"><img src="img/Art/2dart/skillicons/passives/Blood2.webp" alt=""></div>
+                <span class="nm">Inev. Rupture <small>(passive)</small></span>
+                <div class="tt"><h5>Inevitable Rupture <span style="color:#ff9b9b;font-size:11px">(пассив!)</span></h5>
+                  <div class="tags"><span class="tag passive">Passive</span><span class="tag">Bleed</span></div>
+                  <p class="desc">Передаёт bleed-магнитуду на соседних врагов; работает на full-HP и moving целях. Это <b>нода в дереве пассивов</b>, не саппорт-гем.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slot">
+            <div class="slot-main gold" data-skill="parry">
+              <span class="num">2</span>
+              <div class="ico-wrap"><img src="img/Art/2dart/skillicons/4k/huntressbucklerparry.webp" alt=""></div>
+              <span class="nm">Parry</span>
+              <div class="tt"><h5>Parry</h5>
+                <div class="tags"><span class="tag">Skill</span><span class="tag">Melee</span></div>
+                <p class="desc">Защитный + сетап-скилл. С прокачкой даёт большой Parried-window для выгрузки.</p></div>
+            </div>
+            <div class="slot-supports">
+              <div class="slot-support" data-skill="riposte">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/RetortSupportGem.webp" alt=""></div>
+                <span class="nm">Frenzied Riposte</span>
+                <div class="tt"><h5>Frenzied Riposte</h5>
+                  <div class="tags"><span class="tag sup">Support</span></div>
+                  <p class="desc">Parried → Frenzy-заряд по удару.</p></div>
+              </div>
+              <div class="slot-support" data-skill="prolonged">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/MoreDurationSupportGem.webp" alt=""></div>
+                <span class="nm">Prolonged Duration I <small>(ex Persistence)</small></span>
+                <div class="tt"><h5>Prolonged Duration I</h5>
+                  <div class="tags"><span class="tag sup">Support</span><span class="tag">Duration</span></div>
+                  <div class="meta-row"><b>Lvl:</b> 1 · <b>+5 Str</b></div>
+                  <p class="desc">+30% More Skill Effect Duration. Удлиняет Parried-окно.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slot">
+            <div class="slot-main" data-skill="disengage">
+              <span class="num">3</span>
+              <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/ImpaleSkillGem.webp" alt=""></div>
+              <span class="nm">Disengage + auras</span>
+              <div class="tt"><h5>Disengage + ауры</h5>
+                <div class="tags"><span class="tag">Skill</span><span class="tag">Travel</span></div>
+                <p class="desc">Спендер Frenzy + 3 пассивных аурных эффекта в этом слоте.</p></div>
+            </div>
+            <div class="slot-supports">
+              <div class="slot-support" data-skill="herald-blood">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/HeraldofBloodSkillGem.webp" alt=""></div>
+                <span class="nm">Herald of Blood</span>
+                <div class="tt"><h5>Herald of Blood</h5>
+                  <div class="tags"><span class="tag buff">Buff</span><span class="tag">Persistent</span></div>
+                  <p class="desc">Bleeding-враги взрываются при смерти.</p></div>
+              </div>
+              <div class="slot-support" data-skill="wind-dancer">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/WindDancerSkillGem.webp" alt=""></div>
+                <span class="nm">Wind Dancer</span>
+                <div class="tt"><h5>Wind Dancer</h5>
+                  <div class="tags"><span class="tag buff">Buff</span></div>
+                  <p class="desc">+10% Eva/stage до 3 стейджей. При хите по вам — Gale Force AoE.</p></div>
+              </div>
+              <div class="slot-support" data-skill="combat-frenzy">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/RangerCombatFrenzySkillGem.webp" alt=""></div>
+                <span class="nm">Combat Frenzy</span>
+                <div class="tt"><h5>Combat Frenzy</h5>
+                  <div class="tags"><span class="tag buff">Buff</span></div>
+                  <p class="desc">Frenzy-заряд при заморозке/электрокьюте/пинне.</p></div>
+              </div>
+            </div>
+          </div>
+
         </div>
-        <div class="gems" style="margin-top:6px">
-          <span class="gem main"><img src="img/Art/2dart/skillicons/4k/huntressbucklerparry.webp" alt="">Parry</span>
-          <span class="gem red"><img src="img/Art/2DItems/Gems/New/NewSupport/RetortSupportGem.webp" alt="">Frenzied Riposte</span>
-          <span class="gem"><img src="img/Art/2dart/skillicons/support/ragesupport.webp" alt="">Persistence</span>
-        </div>
-        <div class="gems" style="margin-top:6px">
-          <span class="gem green"><img src="img/Art/2DItems/Gems/New/ImpaleSkillGem.webp" alt="">Disengage</span>
-          <span class="gem red"><img src="img/Art/2DItems/Gems/New/HeraldofBloodSkillGem.webp" alt="">Herald of Blood</span>
-          <span class="gem blue"><img src="img/Art/2DItems/Gems/New/WindDancerSkillGem.webp" alt="">Wind Dancer</span>
-          <span class="gem green"><img src="img/Art/2DItems/Gems/New/RangerCombatFrenzySkillGem.webp" alt="">Combat Frenzy</span>
-        </div>
-      </div>
     </article>
   </section>
 
@@ -425,30 +788,87 @@
         </div>
       </header>
 
+      <div class="stage-tabs" data-tabs="v2">
+        <button class="active" data-stage="v2-1">Стадия 1<span class="tab-sub">ур. 1–20 · кампания</span></button>
+        <button data-stage="v2-2">Стадия 2<span class="tab-sub">ур. 20–50 · переход</span></button>
+        <button data-stage="v2-3">Стадия 3<span class="tab-sub">ур. 50+ · эндгейм</span></button>
+      </div>
+
       <!-- STAGE 1 -->
-      <div class="stage">
-        <h4><span class="stamp">Стадия 1 · ур. 1–20</span> Кампания, акт 1–2</h4>
+      <div class="stage-panel active" data-stage="v2-1">
         <p>Базы оружия/баклера/брони те же, что в Варианте 1 (Hardwood → Winged Spear; Leather → Iron Buckler; Leather Vest → Shrouded Vest). На старте всё одинаковое — отличаются только активные скиллы.</p>
 
-        <h3>Скиллы и сапорты</h3>
-        <div class="gems">
-          <span class="gem main"><img src="img/Art/2DItems/Gems/New/StormSpearSkillGem.webp" alt="">Lightning Spear</span>
-          <span class="gem"><img src="img/Art/2dart/skillicons/support/ragesupport.webp" alt="">Martial Tempo</span>
+        <h3>Skill setup — 3 слота</h3>
+        <div class="slots">
+
+          <div class="slot">
+            <div class="slot-main gold" data-skill="ls">
+              <span class="num">1</span>
+              <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/StormSpearSkillGem.webp" alt=""></div>
+              <span class="nm">Lightning Spear</span>
+              <div class="tt"><h5>Lightning Spear</h5>
+                <div class="tags"><span class="tag">Attack</span><span class="tag">Projectile</span><span class="tag">Lightning</span><span class="tag">AoE</span></div>
+                <div class="meta-row"><b>Время:</b> 60% от базы · <b>Урон:</b> 110–343%</div>
+                <p class="desc">Бросок копья, взрыв при попадании, выпуск 5 молниевых стрел в ближайших врагов. Frenzy-заряд → 3 дополнительные копии. Конвертирует 80% phys → lightning.</p></div>
+            </div>
+            <div class="slot-supports">
+              <div class="slot-support" data-skill="rapid">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/FasterAttackSupportGem.webp" alt=""></div>
+                <span class="nm">Rapid Attacks I</span>
+                <div class="tt"><h5>Rapid Attacks I</h5>
+                  <div class="tags"><span class="tag sup">Support</span></div>
+                  <p class="desc">+15% Attack Speed. Maxroll называет это «Martial Tempo».</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slot">
+            <div class="slot-main gold" data-skill="parry">
+              <span class="num">2</span>
+              <div class="ico-wrap"><img src="img/Art/2dart/skillicons/4k/huntressbucklerparry.webp" alt=""></div>
+              <span class="nm">Parry</span>
+              <div class="tt"><h5>Parry</h5>
+                <div class="tags"><span class="tag">Skill</span><span class="tag">Attack</span><span class="tag">Melee</span></div>
+                <p class="desc">Ловит первый удар, накладывает Parried (+50% Attack-урона на 2с).</p></div>
+            </div>
+            <div class="slot-supports">
+              <div class="slot-support" data-skill="riposte">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/RetortSupportGem.webp" alt=""></div>
+                <span class="nm">Frenzied Riposte</span>
+                <div class="tt"><h5>Frenzied Riposte</h5>
+                  <div class="tags"><span class="tag sup">Support</span></div>
+                  <p class="desc">Parried → Frenzy-заряд по удару.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slot">
+            <div class="slot-main" data-skill="disengage">
+              <span class="num">3</span>
+              <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/ImpaleSkillGem.webp" alt=""></div>
+              <span class="nm">Disengage</span>
+              <div class="tt"><h5>Disengage</h5>
+                <div class="tags"><span class="tag">Skill</span><span class="tag">Travel</span></div>
+                <p class="desc">Прыжок назад, shockwave из копий, Frenzy-заряд.</p></div>
+            </div>
+            <div class="slot-supports">
+              <div class="slot-support" data-skill="orb">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/OrbOfStormsSkillGem.webp" alt=""></div>
+                <span class="nm">Orb of Storms <small>(skill)</small></span>
+                <div class="tt"><h5>Orb of Storms</h5>
+                  <div class="tags"><span class="tag">Spell</span><span class="tag">Lightning</span><span class="tag">AoE</span><span class="tag">Duration</span></div>
+                  <div class="meta-row"><b>Время каста:</b> 0.80s</div>
+                  <p class="desc">Электросфера стреляет цепными молниями. Оставляет lightning-инфузию при истечении.</p></div>
+              </div>
+            </div>
+          </div>
+
         </div>
-        <div class="gems">
-          <span class="gem main"><img src="img/Art/2dart/skillicons/4k/huntressbucklerparry.webp" alt="">Parry</span>
-          <span class="gem red"><img src="img/Art/2DItems/Gems/New/NewSupport/RetortSupportGem.webp" alt="">Frenzied Riposte</span>
-        </div>
-        <div class="gems">
-          <span class="gem green"><img src="img/Art/2DItems/Gems/New/ImpaleSkillGem.webp" alt="">Disengage</span>
-          <span class="gem blue"><img src="img/Art/2DItems/Gems/New/OrbOfStormsSkillGem.webp" alt="">Orb of Storms</span>
-        </div>
-        <div class="note">Старайтесь брать <b>Combat Frenzy</b> как только откроется — она позволяет генерировать Frenzy-заряды и без парирования, освобождая Parry под защитную роль.</div>
+        <div class="note">Старайтесь брать <b>Combat Frenzy</b> как только откроется — она позволяет генерировать Frenzy-заряды без парирования, освобождая Parry под защитную роль.</div>
       </div>
 
       <!-- STAGE 2 -->
-      <div class="stage">
-        <h4><span class="stamp">Стадия 2 · ур. 20–50</span></h4>
+      <div class="stage-panel" data-stage="v2-2">
 
         <h3>Оружие — приоритет crit-имплисит</h3>
         <div class="grid-4">
@@ -472,28 +892,95 @@
             <div class="meta"><div class="name">Edged → Pearl Buckler</div><div class="sub">ур. 39–50 · 70–87 Eva</div></div></div>
         </div>
 
-        <h3 style="margin-top:18px">Скилл-сетап</h3>
-        <div class="gems">
-          <span class="gem main"><img src="img/Art/2DItems/Gems/New/StormSpearSkillGem.webp" alt="">Lightning Spear</span>
-          <span class="gem"><img src="img/Art/2dart/skillicons/support/ragesupport.webp" alt="">Martial Tempo</span>
-          <span class="gem blue"><img src="img/Art/2DItems/Gems/New/NewSupport/AddedLightningDamageSupportGem.webp" alt="">Lightning Infusion</span>
-          <span class="gem blue"><img src="img/Art/2DItems/Gems/New/NewSupport/ConductionSupportGem.webp" alt="">Shock Support</span>
-        </div>
-        <div class="gems" style="margin-top:6px">
-          <span class="gem main"><img src="img/Art/2dart/skillicons/4k/huntressbucklerparry.webp" alt="">Parry</span>
-          <span class="gem red"><img src="img/Art/2DItems/Gems/New/NewSupport/RetortSupportGem.webp" alt="">Frenzied Riposte</span>
-          <span class="gem green"><img src="img/Art/2DItems/Gems/New/RangerCombatFrenzySkillGem.webp" alt="">Combat Frenzy</span>
-        </div>
-        <div class="gems" style="margin-top:6px">
-          <span class="gem green"><img src="img/Art/2DItems/Gems/New/ThunderousLeapSkillGem.webp" alt="">Thunderous Leap</span>
-          <span class="gem blue"><img src="img/Art/2DItems/Gems/New/HeraldofThunderSkillGem.webp" alt="">Herald of Thunder</span>
-          <span class="gem"><img src="img/Art/2DItems/Gems/New/WindDancerSkillGem.webp" alt="">Wind Dancer</span>
+        <h3 style="margin-top:18px">Skill setup — 3 слота</h3>
+        <div class="slots">
+
+          <div class="slot">
+            <div class="slot-main gold" data-skill="ls">
+              <span class="num">1</span>
+              <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/StormSpearSkillGem.webp" alt=""></div>
+              <span class="nm">Lightning Spear</span>
+              <div class="tt"><h5>Lightning Spear</h5>
+                <div class="tags"><span class="tag">Attack</span><span class="tag">Lightning</span><span class="tag">Projectile</span></div>
+                <p class="desc">Главный DPS. Конвертирует 80% phys → lightning, выпускает 5 цепных молний.</p></div>
+            </div>
+            <div class="slot-supports">
+              <div class="slot-support" data-skill="rapid">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/FasterAttackSupportGem.webp" alt=""></div>
+                <span class="nm">Rapid Attacks I</span>
+                <div class="tt"><h5>Rapid Attacks I</h5><div class="tags"><span class="tag sup">Support</span></div><p class="desc">+15% Attack Speed.</p></div>
+              </div>
+              <div class="slot-support" data-skill="add-light">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/AddedLightningDamageSupportGem.webp" alt=""></div>
+                <span class="nm">Added Lightning <small>(ex Lightning Infusion)</small></span>
+                <div class="tt"><h5>Added Lightning Damage</h5>
+                  <div class="tags"><span class="tag sup">Support</span><span class="tag">Lightning</span></div>
+                  <p class="desc">Добавляет плоский lightning damage к атакам. Близко к buff Lightning Infusion от вкл. умения.</p></div>
+              </div>
+              <div class="slot-support" data-skill="shock">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/ConductionSupportGem.webp" alt=""></div>
+                <span class="nm">Conduction <small>(Shock support)</small></span>
+                <div class="tt"><h5>Conduction</h5>
+                  <div class="tags"><span class="tag sup">Support</span><span class="tag">Lightning</span></div>
+                  <p class="desc">Увеличивает шанс Shock и его магнитуду. Шок = +20% получаемого урона цели.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slot">
+            <div class="slot-main gold" data-skill="parry">
+              <span class="num">2</span>
+              <div class="ico-wrap"><img src="img/Art/2dart/skillicons/4k/huntressbucklerparry.webp" alt=""></div>
+              <span class="nm">Parry</span>
+              <div class="tt"><h5>Parry</h5><div class="tags"><span class="tag">Skill</span><span class="tag">Melee</span></div><p class="desc">Сетап-окно для крит-выгрузки Lightning Spear.</p></div>
+            </div>
+            <div class="slot-supports">
+              <div class="slot-support" data-skill="riposte">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/RetortSupportGem.webp" alt=""></div>
+                <span class="nm">Frenzied Riposte</span>
+                <div class="tt"><h5>Frenzied Riposte</h5><div class="tags"><span class="tag sup">Support</span></div><p class="desc">Parried → Frenzy-заряд.</p></div>
+              </div>
+              <div class="slot-support" data-skill="combat-frenzy">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/RangerCombatFrenzySkillGem.webp" alt=""></div>
+                <span class="nm">Combat Frenzy <small>(skill)</small></span>
+                <div class="tt"><h5>Combat Frenzy</h5>
+                  <div class="tags"><span class="tag buff">Buff</span><span class="tag">Persistent</span></div>
+                  <p class="desc">Frenzy-заряд при Freeze/Electrocute/Pin. Удобно с шок-билдом.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slot">
+            <div class="slot-main" data-skill="thunderous">
+              <span class="num">3</span>
+              <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/ThunderousLeapSkillGem.webp" alt=""></div>
+              <span class="nm">Thunderous Leap</span>
+              <div class="tt"><h5>Thunderous Leap</h5>
+                <div class="tags"><span class="tag">Attack</span><span class="tag">Melee</span><span class="tag">Slam</span><span class="tag">Lightning</span></div>
+                <div class="meta-row"><b>+1.1s</b> к Total Attack Time</div>
+                <p class="desc">Прыжок и втык копья в землю; молниевая shockwave вокруг. Конвертирует 70% phys → lightning, +100% Shock Chance.</p></div>
+            </div>
+            <div class="slot-supports">
+              <div class="slot-support" data-skill="herald-thunder">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/HeraldofThunderSkillGem.webp" alt=""></div>
+                <span class="nm">Herald of Thunder</span>
+                <div class="tt"><h5>Herald of Thunder</h5>
+                  <div class="tags"><span class="tag buff">Buff</span><span class="tag">Persistent</span></div>
+                  <p class="desc">Бьёт молнией по шок-цели; при её смерти доп. молнии.</p></div>
+              </div>
+              <div class="slot-support" data-skill="wind-dancer">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/WindDancerSkillGem.webp" alt=""></div>
+                <span class="nm">Wind Dancer</span>
+                <div class="tt"><h5>Wind Dancer</h5><div class="tags"><span class="tag buff">Buff</span></div><p class="desc">+10% Eva/stage. На удар — Gale Force AoE.</p></div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
       <!-- STAGE 3 -->
-      <div class="stage">
-        <h4><span class="stamp">Стадия 3 · ур. 50+</span> Эндгейм</h4>
+      <div class="stage-panel" data-stage="v2-3">
 
         <h3>Оружие — топ</h3>
         <div class="grid-4">
@@ -506,25 +993,109 @@
         </div>
         <div class="note info">Крафт-аффиксы: <b>% Lightning Damage</b>, <b>% Crit Chance</b>, <b>+Lightning to Attacks</b>, <b>Attack Speed</b>.</div>
 
-        <h3 style="margin-top:14px">Полный 6L Lightning Spear</h3>
-        <div class="gems">
-          <span class="gem main"><img src="img/Art/2DItems/Gems/New/StormSpearSkillGem.webp" alt="">Lightning Spear</span>
-          <span class="gem blue"><img src="img/Art/2DItems/Gems/New/NewSupport/AddedLightningDamageSupportGem.webp" alt="">Lightning Infusion</span>
-          <span class="gem"><img src="img/Art/2dart/skillicons/support/ragesupport.webp" alt="">Martial Tempo</span>
-          <span class="gem blue"><img src="img/Art/2DItems/Gems/New/NewSupport/ConductionSupportGem.webp" alt="">Shock</span>
-          <span class="gem"><img src="img/Art/2DItems/Gems/New/NewSupport/InspirationSupportGem.webp" alt="">Inspiration</span>
-          <span class="gem blue"><img src="img/Art/2DItems/Gems/New/NewSupport/LightningPenetrationSupportGem.webp" alt="">Lightning Pen</span>
-        </div>
-        <div class="gems" style="margin-top:6px">
-          <span class="gem main"><img src="img/Art/2dart/skillicons/4k/huntressbucklerparry.webp" alt="">Parry</span>
-          <span class="gem red"><img src="img/Art/2DItems/Gems/New/NewSupport/RetortSupportGem.webp" alt="">Frenzied Riposte</span>
-          <span class="gem"><img src="img/Art/2dart/skillicons/support/ragesupport.webp" alt="">Persistence</span>
-        </div>
-        <div class="gems" style="margin-top:6px">
-          <span class="gem blue"><img src="img/Art/2DItems/Gems/New/HeraldofThunderSkillGem.webp" alt="">Herald of Thunder</span>
-          <span class="gem"><img src="img/Art/2DItems/Gems/New/WindDancerSkillGem.webp" alt="">Wind Dancer</span>
-          <span class="gem green"><img src="img/Art/2DItems/Gems/New/RangerCombatFrenzySkillGem.webp" alt="">Combat Frenzy</span>
-          <span class="gem purple"><img src="img/Art/2DItems/Gems/New/CastOnShockMetaSkillGem.webp" alt="">Cast on Shock</span>
+        <h3 style="margin-top:14px">Полный 6L Lightning Spear — 3 слота</h3>
+        <div class="slots">
+
+          <div class="slot">
+            <div class="slot-main gold" data-skill="ls">
+              <span class="num">1</span>
+              <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/StormSpearSkillGem.webp" alt=""></div>
+              <span class="nm">Lightning Spear (6L)</span>
+              <div class="tt"><h5>Lightning Spear — основной DPS</h5>
+                <div class="tags"><span class="tag">Attack</span><span class="tag">Lightning</span><span class="tag">Crit</span></div>
+                <p class="desc">6-link сетап с упором на Lightning + Shock + Crit. Frenzy-заряд расщепляет копьё на копии.</p></div>
+            </div>
+            <div class="slot-supports">
+              <div class="slot-support" data-skill="add-light">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/AddedLightningDamageSupportGem.webp" alt=""></div>
+                <span class="nm">Added Lightning <small>(ex Infusion)</small></span>
+                <div class="tt"><h5>Added Lightning Damage</h5><div class="tags"><span class="tag sup">Support</span></div><p class="desc">Плоский lightning к атакам.</p></div>
+              </div>
+              <div class="slot-support" data-skill="rapid">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/FasterAttackSupportGem.webp" alt=""></div>
+                <span class="nm">Rapid Attacks I</span>
+                <div class="tt"><h5>Rapid Attacks I</h5><div class="tags"><span class="tag sup">Support</span></div><p class="desc">+15% Attack Speed.</p></div>
+              </div>
+              <div class="slot-support" data-skill="shock">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/ConductionSupportGem.webp" alt=""></div>
+                <span class="nm">Conduction</span>
+                <div class="tt"><h5>Conduction (Shock)</h5><div class="tags"><span class="tag sup">Support</span><span class="tag">Lightning</span></div><p class="desc">+Chance/Magnitude of Shock.</p></div>
+              </div>
+              <div class="slot-support" data-skill="inspiration">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/InspirationSupportGem.webp" alt=""></div>
+                <span class="nm">Inspiration</span>
+                <div class="tt"><h5>Inspiration</h5>
+                  <div class="tags"><span class="tag sup">Support</span></div>
+                  <p class="desc">Снижает стоимость маны, добавляет Mana Regen и elemental damage.</p></div>
+              </div>
+              <div class="slot-support" data-skill="lightning-pen">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/LightningPenetrationSupportGem.webp" alt=""></div>
+                <span class="nm">Lightning Penetration</span>
+                <div class="tt"><h5>Lightning Penetration</h5>
+                  <div class="tags"><span class="tag sup">Support</span><span class="tag">Lightning</span></div>
+                  <p class="desc">Скиллы пробивают Lightning Resistance цели — критично для эндгейм-боссов.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slot">
+            <div class="slot-main gold" data-skill="parry">
+              <span class="num">2</span>
+              <div class="ico-wrap"><img src="img/Art/2dart/skillicons/4k/huntressbucklerparry.webp" alt=""></div>
+              <span class="nm">Parry</span>
+              <div class="tt"><h5>Parry</h5><div class="tags"><span class="tag">Skill</span></div><p class="desc">Защита + сетап для крит-окна.</p></div>
+            </div>
+            <div class="slot-supports">
+              <div class="slot-support" data-skill="riposte">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/RetortSupportGem.webp" alt=""></div>
+                <span class="nm">Frenzied Riposte</span>
+                <div class="tt"><h5>Frenzied Riposte</h5><div class="tags"><span class="tag sup">Support</span></div><p class="desc">Parried → Frenzy.</p></div>
+              </div>
+              <div class="slot-support" data-skill="prolonged">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/MoreDurationSupportGem.webp" alt=""></div>
+                <span class="nm">Prolonged Duration I <small>(ex Persistence)</small></span>
+                <div class="tt"><h5>Prolonged Duration I</h5>
+                  <div class="tags"><span class="tag sup">Support</span><span class="tag">Duration</span></div>
+                  <p class="desc">+30% More Skill Effect Duration. Удлиняет Parried-окно.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slot">
+            <div class="slot-main" data-skill="auras">
+              <span class="num">3</span>
+              <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/HeraldofThunderSkillGem.webp" alt=""></div>
+              <span class="nm">Ауры + триггер</span>
+              <div class="tt"><h5>Ауры + Cast on Shock</h5>
+                <div class="tags"><span class="tag buff">Buff</span><span class="tag">Persistent</span></div>
+                <p class="desc">Слот для всех пассивных бафов и auto-cast меты.</p></div>
+            </div>
+            <div class="slot-supports">
+              <div class="slot-support" data-skill="herald-thunder">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/HeraldofThunderSkillGem.webp" alt=""></div>
+                <span class="nm">Herald of Thunder</span>
+                <div class="tt"><h5>Herald of Thunder</h5><div class="tags"><span class="tag buff">Buff</span></div><p class="desc">Цепные молнии по шок-целям + взрывы.</p></div>
+              </div>
+              <div class="slot-support" data-skill="wind-dancer">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/WindDancerSkillGem.webp" alt=""></div>
+                <span class="nm">Wind Dancer</span>
+                <div class="tt"><h5>Wind Dancer</h5><div class="tags"><span class="tag buff">Buff</span></div><p class="desc">+Eva на стейджах, AoE при ударе.</p></div>
+              </div>
+              <div class="slot-support" data-skill="combat-frenzy">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/RangerCombatFrenzySkillGem.webp" alt=""></div>
+                <span class="nm">Combat Frenzy</span>
+                <div class="tt"><h5>Combat Frenzy</h5><div class="tags"><span class="tag buff">Buff</span></div><p class="desc">Frenzy-заряд при шоке/заморозке/пинне.</p></div>
+              </div>
+              <div class="slot-support" data-skill="cos">
+                <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/CastOnShockMetaSkillGem.webp" alt=""></div>
+                <span class="nm">Cast on Shock</span>
+                <div class="tt"><h5>Cast on Shock</h5>
+                  <div class="tags"><span class="tag buff">Meta</span><span class="tag">Trigger</span><span class="tag">Lightning</span></div>
+                  <p class="desc">Накапливает энергию при шоке врагов; триггерит вставленный спелл при максимуме.</p></div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <div class="note warn">Для 3-й ascendancy-ноды в этом варианте выберите <b>Surging Avatar</b> + <b>Elemental Surge</b> — Frenzy-заряды от Parry будут триггерить молниевую волну.</div>
@@ -631,5 +1202,20 @@
   Path of Exile 2 © Grinding Gear Games. Сгенерировано: 2026-05-16.
 </footer>
 
+<script>
+// Stage tabs switcher
+document.querySelectorAll('.stage-tabs').forEach(group => {
+  const article = group.closest('article');
+  group.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const stage = btn.dataset.stage;
+      group.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
+      article.querySelectorAll('.stage-panel').forEach(p => {
+        p.classList.toggle('active', p.dataset.stage === stage);
+      });
+    });
+  });
+});
+</script>
 </body>
 </html>
