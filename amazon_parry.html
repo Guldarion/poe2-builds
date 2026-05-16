@@ -75,8 +75,24 @@
   .grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
 
   .item{display:flex;gap:12px;padding:12px;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:8px;align-items:center}
-  .item .ico{flex:0 0 56px;height:56px;border-radius:6px;background:radial-gradient(circle at 50% 30%,#1f2538,#08090d 80%);display:grid;place-items:center;border:1px solid var(--line)}
+  .item .ico{flex:0 0 56px;height:56px;border-radius:6px;background:radial-gradient(circle at 50% 30%,#1f2538,#08090d 80%);display:grid;place-items:center;border:1px solid var(--line);position:relative}
   .item .ico img{max-width:48px;max-height:48px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.7))}
+
+  /* Ascendancy nodes — golden numbered badges */
+  .item .ico.asc-node{
+    background:radial-gradient(circle at 50% 30%, rgba(212,162,74,.35), rgba(8,9,13,.95) 75%);
+    border:2px solid var(--gold);
+    box-shadow:0 0 14px rgba(212,162,74,.35) inset, 0 0 8px rgba(212,162,74,.25);
+  }
+  .asc-num{
+    position:absolute; top:-8px; left:-8px;
+    width:22px; height:22px; border-radius:50%;
+    background:var(--gold); color:#1a1108;
+    font-family:"Cinzel",Georgia,serif; font-weight:700; font-size:13px;
+    display:grid; place-items:center;
+    box-shadow:0 2px 4px rgba(0,0,0,.6);
+  }
+  .asc-svg{ width:30px; height:30px; color:var(--gold-2); filter:drop-shadow(0 0 6px rgba(244,207,120,.5)); }
   .item .meta{flex:1;min-width:0}
   .item .name{font-weight:600;color:#fff;font-size:14px;margin-bottom:2px}
   .item .name.gold{color:var(--gold-2)}
@@ -85,8 +101,8 @@
 
   /* Skill cell (compact, support-gem chip style) */
   .gems{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-  .gem{display:flex;align-items:center;gap:8px;padding:6px 10px 6px 6px;background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:999px;font-size:12px}
-  .gem img{width:24px;height:24px;border-radius:50%;background:#0a0a0d;padding:1px}
+  .gem{display:flex;align-items:center;gap:8px;padding:5px 12px 5px 5px;background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:999px;font-size:12px}
+  .gem img{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 50% 30%,#26314a,#0a0a0d 80%);padding:2px;border:1px solid rgba(255,255,255,.08);filter:brightness(1.25) contrast(1.1)}
   .gem.main{border-color:rgba(212,162,74,.5);background:linear-gradient(90deg,rgba(212,162,74,.18),rgba(0,0,0,.3))}
   .gem.red{border-color:rgba(195,59,59,.5)}
   .gem.blue{border-color:rgba(74,163,212,.5)}
@@ -168,7 +184,7 @@
     <h4>Содержание</h4>
     <ol>
       <li><a href="#concept">Концепция и механика</a></li>
-      <li><a href="#ascendancy">Аскенда Amazon</a></li>
+      <li><a href="#ascendancy">Ascendancy (возвышение)</a></li>
       <li><a href="#v1">Вариант 1 · Bleed/Phys</a></li>
       <li><a href="#v2">Вариант 2 · Lightning/Crit</a></li>
       <li><a href="#tree">Дерево пассивов</a></li>
@@ -189,7 +205,7 @@
         <div class="pillar"><div class="k">Скейл Parry</div><div class="v">3–4 физ. урона за каждые 5 Evasion на баклере</div></div>
         <div class="pillar"><div class="k">Чейн</div><div class="v">Parry → Frenzied Riposte → Frenzy-заряд</div></div>
         <div class="pillar"><div class="k">Защита</div><div class="v">100% Eva = 100% шанс игнора Parry-стана</div></div>
-        <div class="pillar"><div class="k">Аскенда</div><div class="v">Penetrate: %Accuracy → flat Phys</div></div>
+        <div class="pillar"><div class="k">Ascendancy</div><div class="v">Penetrate: %Accuracy → flat Phys</div></div>
       </div>
 
       <h3 style="margin-top:18px">Цепочка действий в бою</h3>
@@ -208,17 +224,21 @@
 
   <!-- ════════════════════════ ASCENDANCY ════════════════════════ -->
   <section id="ascendancy">
-    <h2>2. Аскенда Amazon — порядок узлов</h2>
+    <h2>2. Ascendancy Amazon (возвышение) — порядок узлов</h2>
     <div class="panel">
-      <p>Базовый класс Huntress → аскенда <b>Amazon</b>. Тема: точность, уклонение и «вскрытие слабостей» у редких/уникальных врагов.</p>
+      <p>Базовый класс Huntress → ascendancy (возвышение) <b>Amazon</b>. Тема: точность, уклонение и «вскрытие слабостей» у редких/уникальных врагов.</p>
       <div class="grid-2" style="margin-top:14px">
-        <div class="item"><div class="ico"><img src="img/art/2dart/skillicons/support/blindsupport.webp" alt=""></div>
+        <div class="item"><div class="ico asc-node"><span class="asc-num">1</span>
+          <svg viewBox="0 0 24 24" class="asc-svg"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="3" fill="currentColor"/><path d="M3 12h3M18 12h3M12 3v3M12 18v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
           <div class="meta"><div class="name gold">1. Predatory Instinct</div><div class="sub">Реальные/уник. враги показывают слабости. <b>+50% more damage</b> по ослабленным.</div></div></div>
-        <div class="item"><div class="ico"><img src="img/art/2dart/skillicons/support/steelynervesupport.webp" alt=""></div>
+        <div class="item"><div class="ico asc-node"><span class="asc-num">2</span>
+          <svg viewBox="0 0 24 24" class="asc-svg"><path d="M12 2 L13.5 9 L21 10.5 L15.5 14.5 L17 22 L12 18 L7 22 L8.5 14.5 L3 10.5 L10.5 9 Z" fill="currentColor"/></svg></div>
           <div class="meta"><div class="name gold">2. Critical Strike</div><div class="sub">Избыток Accuracy конвертируется в шанс крита (25%).</div></div></div>
-        <div class="item"><div class="ico"><img src="img/art/2dart/skillicons/support/overpowersupport.webp" alt=""></div>
+        <div class="item"><div class="ico asc-node"><span class="asc-num">3</span>
+          <svg viewBox="0 0 24 24" class="asc-svg"><path d="M3 21 L13 11 M9 11 L13 11 L13 15 M16 8 L20 4 M14 4 L20 4 L20 10" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="meta"><div class="name gold">3. Penetrate</div><div class="sub">25% от значения Accuracy добавляется в виде плоского физ. урона по атакам.</div></div></div>
-        <div class="item"><div class="ico"><img src="img/art/2dart/skillicons/support/ragesupport.webp" alt=""></div>
+        <div class="item"><div class="ico asc-node"><span class="asc-num">4</span>
+          <svg viewBox="0 0 24 24" class="asc-svg"><path d="M13 2 L4 14 L11 14 L9 22 L20 9 L13 9 Z" fill="currentColor"/></svg></div>
           <div class="meta"><div class="name gold">4. In for the Kill <span class="badge red" style="font-size:10px">или Stalking Panther</span></div><div class="sub">Скорость атаки/движения у ослабленных, либо ×2 Eva с шлема/перчаток/обуви.</div></div></div>
       </div>
     </div>
@@ -507,7 +527,7 @@
           <span class="gem purple"><img src="img/Art/2DItems/Gems/New/BloodHuntSkillGem.webp" alt="">Cast on Shock</span>
         </div>
 
-        <div class="note warn">Для 3-й аскенда-ноды в этом варианте выберите <b>Surging Avatar</b> + <b>Elemental Surge</b> — Frenzy-заряды от Parry будут триггерить молниевую волну.</div>
+        <div class="note warn">Для 3-й ascendancy-ноды в этом варианте выберите <b>Surging Avatar</b> + <b>Elemental Surge</b> — Frenzy-заряды от Parry будут триггерить молниевую волну.</div>
       </div>
     </article>
   </section>
@@ -576,7 +596,7 @@
           <tr><td>Главный скилл</td><td>Rake / Spearfield</td><td>Lightning Spear</td></tr>
           <tr><td>Тип урона</td><td>Phys + Bleed DoT</td><td>Lightning + Shock + Crit</td></tr>
           <tr><td>Защита</td><td>Pure Evasion</td><td>Eva/ES гибрид (+ MoM опц.)</td></tr>
-          <tr><td>Аскенда (3-я нода)</td><td>Penetrate</td><td>Surging Avatar → Elemental Surge</td></tr>
+          <tr><td>Ascendancy (3-я нода)</td><td>Penetrate</td><td>Surging Avatar → Elemental Surge</td></tr>
           <tr><td>Имплисит копья</td><td>Spiked / Jagged (bleed)</td><td>Seaglass (high crit)</td></tr>
           <tr><td>Спайк-момент</td><td>Parry → Disengage → bleed-окно</td><td>Parry → Frenzy → crit-burst</tr>
           <tr><td>Сложность</td><td>Средняя</td><td>Выше (управление зарядами + шок)</td></tr>
