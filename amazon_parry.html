@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amazon Parry Spear — Гайд по билду | PoE 2</title>
+<style>
+  :root{
+    --bg:#0e0f12;
+    --bg-2:#161821;
+    --bg-3:#1d2030;
+    --line:#2a2e44;
+    --text:#e7e5dc;
+    --muted:#9a98a6;
+    --gold:#d4a24a;
+    --gold-2:#f4cf78;
+    --red:#c33b3b;
+    --green:#5aa861;
+    --blue:#4aa3d4;
+    --purple:#9b7fd6;
+    --shadow:0 10px 30px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:15px;line-height:1.55;}
+  a{color:var(--gold-2);text-decoration:none;border-bottom:1px dotted rgba(244,207,120,.35)}
+  a:hover{color:#fff;border-bottom-color:#fff}
+  h1,h2,h3,h4{font-family:"Cinzel","Trajan Pro",Georgia,serif;letter-spacing:.5px}
+  h1{font-size:34px;margin:0 0 6px;color:var(--gold-2);text-shadow:0 2px 0 rgba(0,0,0,.5)}
+  h2{font-size:24px;margin:0 0 16px;color:var(--gold);border-bottom:1px solid var(--line);padding-bottom:10px}
+  h3{font-size:18px;margin:0 0 10px;color:#fff}
+  h4{font-size:14px;margin:0 0 8px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+
+  /* ── HEADER ───────────────────────────────────────── */
+  .hero{
+    position:relative;
+    padding:60px 24px 50px;
+    background:
+      radial-gradient(1100px 400px at 70% -100px,rgba(212,162,74,.18),transparent 60%),
+      linear-gradient(180deg,#0a0b0e 0%,#15161d 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .hero-inner{max-width:1180px;margin:0 auto;display:flex;gap:30px;align-items:center;flex-wrap:wrap}
+  .hero-art{width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 40% 30%,#3c2d18,#0b0b0d 70%);
+    display:grid;place-items:center;border:2px solid var(--gold);box-shadow:0 0 40px rgba(212,162,74,.4),inset 0 0 30px rgba(0,0,0,.7)}
+  .hero-art img{width:96px;height:96px;filter:drop-shadow(0 4px 6px rgba(0,0,0,.7))}
+  .hero-text{flex:1;min-width:260px}
+  .crumb{color:var(--muted);font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+  .tagline{color:var(--muted);font-size:16px;margin:6px 0 14px;max-width:680px}
+  .badges{display:flex;flex-wrap:wrap;gap:8px}
+  .badge{padding:5px 11px;border:1px solid var(--line);background:var(--bg-2);border-radius:999px;font-size:12px;color:var(--muted)}
+  .badge.gold{color:var(--gold-2);border-color:rgba(212,162,74,.45)}
+  .badge.red{color:#ff7a7a;border-color:rgba(195,59,59,.45)}
+  .badge.blue{color:#7ec8ee;border-color:rgba(74,163,212,.45)}
+
+  /* ── LAYOUT ──────────────────────────────────────── */
+  .wrap{max-width:1180px;margin:0 auto;padding:30px 24px 80px;display:grid;grid-template-columns:220px 1fr;gap:36px}
+  @media(max-width:880px){.wrap{grid-template-columns:1fr}.toc{position:static!important;display:none}}
+
+  .toc{position:sticky;top:18px;align-self:start;padding:18px 14px;background:var(--bg-2);border:1px solid var(--line);border-radius:10px;font-size:13px}
+  .toc h4{margin:0 0 10px;color:var(--gold)}
+  .toc ol{list-style:none;padding:0;margin:0;counter-reset:tocc}
+  .toc li{counter-increment:tocc;padding:5px 0;border-bottom:1px dashed rgba(255,255,255,.05)}
+  .toc li:last-child{border-bottom:0}
+  .toc li::before{content:counter(tocc,decimal-leading-zero);color:var(--gold);font-weight:600;margin-right:8px;font-family:monospace}
+  .toc a{color:var(--text);border:0}
+  .toc a:hover{color:var(--gold-2)}
+
+  section{margin-bottom:42px}
+  .lead{font-size:16px;color:#cfcec6}
+
+  /* ── CARDS ───────────────────────────────────────── */
+  .panel{background:linear-gradient(180deg,var(--bg-2) 0%,var(--bg-3) 100%);border:1px solid var(--line);border-radius:10px;padding:20px;box-shadow:var(--shadow)}
+  .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+  .grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+
+  .item{display:flex;gap:12px;padding:12px;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:8px;align-items:center}
+  .item .ico{flex:0 0 56px;height:56px;border-radius:6px;background:radial-gradient(circle at 50% 30%,#1f2538,#08090d 80%);display:grid;place-items:center;border:1px solid var(--line)}
+  .item .ico img{max-width:48px;max-height:48px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.7))}
+  .item .meta{flex:1;min-width:0}
+  .item .name{font-weight:600;color:#fff;font-size:14px;margin-bottom:2px}
+  .item .name.gold{color:var(--gold-2)}
+  .item .sub{color:var(--muted);font-size:12px;line-height:1.4}
+  .item .lvl{color:var(--gold);font-size:11px;font-weight:600;margin-right:6px}
+
+  /* Skill cell (compact, support-gem chip style) */
+  .gems{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .gem{display:flex;align-items:center;gap:8px;padding:6px 10px 6px 6px;background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:999px;font-size:12px}
+  .gem img{width:24px;height:24px;border-radius:50%;background:#0a0a0d;padding:1px}
+  .gem.main{border-color:rgba(212,162,74,.5);background:linear-gradient(90deg,rgba(212,162,74,.18),rgba(0,0,0,.3))}
+  .gem.red{border-color:rgba(195,59,59,.5)}
+  .gem.blue{border-color:rgba(74,163,212,.5)}
+  .gem.green{border-color:rgba(90,168,97,.5)}
+  .gem.purple{border-color:rgba(155,127,214,.5)}
+
+  /* ── TABLES ──────────────────────────────────────── */
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 0}
+  th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line)}
+  th{color:var(--gold);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.5px;background:rgba(0,0,0,.2)}
+  tr:hover td{background:rgba(212,162,74,.05)}
+  td.lvl{color:var(--gold-2);font-weight:600;width:60px}
+
+  /* ── STAGE TABS ──────────────────────────────────── */
+  .variant{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:14px 0}
+  .variant > .head{padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+  .variant.v1 > .head{background:linear-gradient(90deg,rgba(195,59,59,.18),transparent)}
+  .variant.v2 > .head{background:linear-gradient(90deg,rgba(74,163,212,.18),transparent)}
+  .variant .head h3{font-size:22px;margin:0;color:#fff}
+  .variant .head .sub{color:var(--muted);font-size:13px;margin-top:4px}
+
+  .stage{padding:16px 22px 22px;border-top:1px solid var(--line)}
+  .stage > h4{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .stage .stamp{display:inline-block;padding:3px 9px;background:rgba(212,162,74,.18);color:var(--gold-2);border-radius:999px;font-size:11px;letter-spacing:1px}
+
+  /* ── PILLARS ─────────────────────────────────────── */
+  .pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0}
+  .pillar{padding:14px;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:8px}
+  .pillar .k{color:var(--gold);font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+  .pillar .v{color:#fff;font-weight:600}
+
+  /* ── COMPARISON ──────────────────────────────────── */
+  .compare th:nth-child(2){color:#ff9b9b}
+  .compare th:nth-child(3){color:#7ec8ee}
+
+  /* ── NOTES ───────────────────────────────────────── */
+  .note{border-left:3px solid var(--gold);background:rgba(212,162,74,.07);padding:12px 14px;border-radius:0 8px 8px 0;color:#dcdacf;font-size:13px;margin:10px 0}
+  .note.warn{border-left-color:var(--red);background:rgba(195,59,59,.08)}
+  .note.info{border-left-color:var(--blue);background:rgba(74,163,212,.08)}
+
+  ul.tight{margin:0 0 0 18px;padding:0}
+  ul.tight li{margin-bottom:4px}
+
+  /* ── FOOTER ──────────────────────────────────────── */
+  footer{border-top:1px solid var(--line);padding:24px;margin-top:40px;color:var(--muted);font-size:13px;text-align:center;background:var(--bg-2)}
+  footer a{color:var(--gold-2)}
+
+  /* Anchor offset for sticky header */
+  section[id]{scroll-margin-top:18px}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════ HERO ════════════════════════ -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-art">
+      <img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/4k/huntressbucklerparry.webp" alt="Parry">
+    </div>
+    <div class="hero-text">
+      <div class="crumb">Path of Exile 2 · Huntress · Amazon</div>
+      <h1>Amazon Parry Spear Build</h1>
+      <p class="tagline">Гайд по прокачке копейщицы-амазонки с активным использованием механики <b>Parry</b>: два варианта развития (физ./bleed и lightning/crit) и три стадии — кампания, средняя игра и эндгейм.</p>
+      <div class="badges">
+        <span class="badge gold">★ Уровни 1–90+</span>
+        <span class="badge">Spear + Buckler</span>
+        <span class="badge">Evasion</span>
+        <span class="badge red">Вариант 1: Bleed/Phys</span>
+        <span class="badge blue">Вариант 2: Lightning/Crit</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ════════════════════════ TOC ════════════════════════ -->
+  <nav class="toc">
+    <h4>Содержание</h4>
+    <ol>
+      <li><a href="#concept">Концепция и механика</a></li>
+      <li><a href="#ascendancy">Аскенда Amazon</a></li>
+      <li><a href="#v1">Вариант 1 · Bleed/Phys</a></li>
+      <li><a href="#v2">Вариант 2 · Lightning/Crit</a></li>
+      <li><a href="#tree">Дерево пассивов</a></li>
+      <li><a href="#compare">Сравнение билдов</a></li>
+      <li><a href="#sources">Источники</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+  <!-- ════════════════════════ CONCEPT ════════════════════════ -->
+  <section id="concept">
+    <h2>1. Концепция и механика</h2>
+    <div class="panel">
+      <p class="lead"><b>Huntress</b> (база 7 Str / 15 Dex / 7 Int) использует копьё в одной руке и <b>баклер</b> во второй. Каждый баклер даёт навык <b>Parry</b> — короткий замах, который ловит первый ближний или дистанционный удар по вам, блокирует его и накладывает дебафф <b>Parried</b>: цель получает <b>+50% урона от атак</b> в течение 2 секунд.</p>
+
+      <div class="pillars">
+        <div class="pillar"><div class="k">Скейл Parry</div><div class="v">3–4 физ. урона за каждые 5 Evasion на баклере</div></div>
+        <div class="pillar"><div class="k">Чейн</div><div class="v">Parry → Frenzied Riposte → Frenzy-заряд</div></div>
+        <div class="pillar"><div class="k">Защита</div><div class="v">100% Eva = 100% шанс игнора Parry-стана</div></div>
+        <div class="pillar"><div class="k">Аскенда</div><div class="v">Penetrate: %Accuracy → flat Phys</div></div>
+      </div>
+
+      <h3 style="margin-top:18px">Цепочка действий в бою</h3>
+      <div class="gems">
+        <span class="gem main"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/4k/huntressbucklerparry.webp" alt="">Parry</span>
+        <span style="color:var(--muted)">→</span>
+        <span class="gem red"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/steelynervesupport.webp" alt="">Frenzied Riposte (support)</span>
+        <span style="color:var(--muted)">→</span>
+        <span class="gem green"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/4k/huntressbloodhunt.webp" alt="">Disengage / Spender</span>
+        <span style="color:var(--muted)">→</span>
+        <span class="gem blue"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Gems/New/StormSpearSkillGem.webp" alt="">Big-hit (Rake / LS)</span>
+      </div>
+      <div class="note">Парирование «съедает» хит врага и одновременно открывает ему окно повышенного урона на 2 секунды. За это окно вы делаете либо мощный bleed-замах (Вариант 1), либо крит-выгрузку (Вариант 2).</div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ ASCENDANCY ════════════════════════ -->
+  <section id="ascendancy">
+    <h2>2. Аскенда Amazon — порядок узлов</h2>
+    <div class="panel">
+      <p>Базовый класс Huntress → аскенда <b>Amazon</b>. Тема: точность, уклонение и «вскрытие слабостей» у редких/уникальных врагов.</p>
+      <div class="grid-2" style="margin-top:14px">
+        <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/blindsupport.webp" alt=""></div>
+          <div class="meta"><div class="name gold">1. Predatory Instinct</div><div class="sub">Реальные/уник. враги показывают слабости. <b>+50% more damage</b> по ослабленным.</div></div></div>
+        <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/steelynervesupport.webp" alt=""></div>
+          <div class="meta"><div class="name gold">2. Critical Strike</div><div class="sub">Избыток Accuracy конвертируется в шанс крита (25%).</div></div></div>
+        <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/overpowersupport.webp" alt=""></div>
+          <div class="meta"><div class="name gold">3. Penetrate</div><div class="sub">25% от значения Accuracy добавляется в виде плоского физ. урона по атакам.</div></div></div>
+        <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/ragesupport.webp" alt=""></div>
+          <div class="meta"><div class="name gold">4. In for the Kill <span class="badge red" style="font-size:10px">или Stalking Panther</span></div><div class="sub">Скорость атаки/движения у ослабленных, либо ×2 Eva с шлема/перчаток/обуви.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ VARIANT 1 ════════════════════════ -->
+  <section id="v1">
+    <h2>3. Вариант 1 · Bleed / Physical Parry Amazon</h2>
+    <p class="lead">Опора на физический урон и кровотечение. Парирование = окно для тяжёлого <b>Rake</b>, который оставляет огромный DoT.</p>
+
+    <article class="variant v1">
+      <header class="head">
+        <div>
+          <h3>Bleed / Physical</h3>
+          <div class="sub">Основной DPS: Rake · Spender: Disengage · Утилити: Wind Dancer + Herald of Blood</div>
+        </div>
+        <div class="badges">
+          <span class="badge red">Phys</span><span class="badge red">Bleed DoT</span><span class="badge">Pure Evasion</span>
+        </div>
+      </header>
+
+      <!-- STAGE 1 -->
+      <div class="stage">
+        <h4><span class="stamp">Стадия 1 · ур. 1–20</span> Кампания, акт 1–начало 2</h4>
+
+        <h3>Оружие</h3>
+        <div class="grid-4">
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear01.webp" alt=""></div>
+            <div class="meta"><div class="name">Hardwood Spear</div><div class="sub"><span class="lvl">ур. 1</span>5–9 phys · 1.6 APS</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear02.webp" alt=""></div>
+            <div class="meta"><div class="name">Ironhead Spear</div><div class="sub"><span class="lvl">ур. 5</span>9–12 phys · 10 Dex</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear03.webp" alt=""></div>
+            <div class="meta"><div class="name">Hunting Spear</div><div class="sub"><span class="lvl">ур. 10</span>10–17 phys · 9 Str / 17 Dex</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear04.webp" alt=""></div>
+            <div class="meta"><div class="name gold">Winged Spear</div><div class="sub"><span class="lvl">ур. 16</span>12–22 · <b>1.7 APS</b></div></div></div>
+        </div>
+
+        <h3 style="margin-top:18px">Баклер · броня</h3>
+        <div class="grid-3">
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Buckler01.webp" alt=""></div>
+            <div class="meta"><div class="name">Leather → Plated Buckler</div><div class="sub">10–26 Eva · 20% block</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Basetypes/BodyDex01.webp" alt=""></div>
+            <div class="meta"><div class="name">Leather → Quilted Vest</div><div class="sub">30–44 Eva · чистая Evasion</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Basetypes/BodyDex02.webp" alt=""></div>
+            <div class="meta"><div class="name">Pathfinder Coat</div><div class="sub"><span class="lvl">ур. 11</span>78 Eva · 21 Dex</div></div></div>
+        </div>
+
+        <h3 style="margin-top:18px">Скиллы и сапорты</h3>
+        <div class="gems">
+          <span class="gem main"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/4k/huntressbloodhunt.webp" alt="">Rake</span>
+          <span class="gem red"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/ragesupport.webp" alt="">Martial Tempo</span>
+          <span class="gem"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/blindsupport.webp" alt="">Lacerate</span>
+        </div>
+        <div class="gems">
+          <span class="gem main"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/4k/huntressbucklerparry.webp" alt="">Parry</span>
+          <span class="gem red"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/steelynervesupport.webp" alt="">Frenzied Riposte</span>
+        </div>
+        <div class="gems">
+          <span class="gem green"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Gems/New/BloodHuntSkillGem.webp" alt="">Disengage</span>
+          <span class="gem"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Gems/New/StormSpearSkillGem.webp" alt="">Explosive Spear</span>
+          <span class="gem"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/overpowersupport.webp" alt="">Overabundance</span>
+        </div>
+      </div>
+
+      <!-- STAGE 2 -->
+      <div class="stage">
+        <h4><span class="stamp">Стадия 2 · ур. 20–50</span> Конец кампании / переход в эндгейм</h4>
+
+        <h3>Оружие — переход к bleed-имплиситам</h3>
+        <div class="grid-4">
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear05.webp" alt=""></div>
+            <div class="meta"><div class="name">War Spear</div><div class="sub"><span class="lvl">ур. 21</span>16–27 phys</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear06.webp" alt=""></div>
+            <div class="meta"><div class="name">Forked Spear</div><div class="sub"><span class="lvl">ур. 26</span>13–38 phys</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear07.webp" alt=""></div>
+            <div class="meta"><div class="name gold">Barbed Spear ★</div><div class="sub"><span class="lvl">ур. 33</span>20–38 · <b>6% crit</b></div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear08.webp" alt=""></div>
+            <div class="meta"><div class="name">Broad Spear</div><div class="sub"><span class="lvl">ур. 40</span>32–48 phys</div></div></div>
+        </div>
+        <div class="note info">Для bleed-варианта ищите редкие копья с префиксом <b>Spiked</b> или <b>Jagged</b> — у них имплисит-бонус к bleed magnitude.</div>
+
+        <h3 style="margin-top:14px">Броня — все слоты на Evasion</h3>
+        <div class="grid-4">
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Basetypes/BodyDex03.webp" alt=""></div>
+            <div class="meta"><div class="name">Rhoahide Coat</div><div class="sub"><span class="lvl">ур. 22</span>131 Eva</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Basetypes/BodyDex04.webp" alt=""></div>
+            <div class="meta"><div class="name">Studded Vest</div><div class="sub"><span class="lvl">ур. 26</span>150 Eva</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Basetypes/BodyDex05.webp" alt=""></div>
+            <div class="meta"><div class="name">Scout's Vest</div><div class="sub"><span class="lvl">ур. 33</span>184 Eva</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Basetypes/BodyDex06.webp" alt=""></div>
+            <div class="meta"><div class="name">Serpentscale Coat</div><div class="sub"><span class="lvl">ур. 36</span>198 Eva</div></div></div>
+        </div>
+
+        <h3 style="margin-top:18px">Аксессуары и приоритеты аффиксов</h3>
+        <ul class="tight">
+          <li><b>Кольца ×2:</b> % phys, Accuracy Rating, +Life, резисты до 75%</li>
+          <li><b>Амулет:</b> % phys damage, Critical Damage Bonus, +Dex</li>
+          <li><b>Пояс:</b> +Life, резисты, % Evasion</li>
+        </ul>
+
+        <h3 style="margin-top:14px">Скилл-сетап</h3>
+        <div class="gems">
+          <span class="gem main"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/4k/huntressbloodhunt.webp" alt="">Rake</span>
+          <span class="gem"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/ragesupport.webp" alt="">Martial Tempo</span>
+          <span class="gem red"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/overpowersupport.webp" alt="">Bleed I</span>
+          <span class="gem red"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/blindsupport.webp" alt="">Lacerate</span>
+        </div>
+        <div class="gems">
+          <span class="gem main"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/4k/huntressbucklerparry.webp" alt="">Parry</span>
+          <span class="gem red"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/steelynervesupport.webp" alt="">Frenzied Riposte</span>
+        </div>
+        <div class="gems">
+          <span class="gem green"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Gems/New/BloodHuntSkillGem.webp" alt="">Disengage</span>
+          <span class="gem blue"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/addedfiredamagesupport.webp" alt="">Wind Dancer (аура)</span>
+          <span class="gem red"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/blindsupport.webp" alt="">Herald of Blood</span>
+        </div>
+      </div>
+
+      <!-- STAGE 3 -->
+      <div class="stage">
+        <h4><span class="stamp">Стадия 3 · ур. 50+</span> Эндгейм / мапы</h4>
+
+        <h3>Оружие — топ-копья</h3>
+        <div class="grid-4">
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear09.webp" alt=""></div>
+            <div class="meta"><div class="name">Seaglass Spear</div><div class="sub"><span class="lvl">ур. 51</span>29–53 · <b>7% crit</b></div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear10.webp" alt=""></div>
+            <div class="meta"><div class="name">Sword Spear</div><div class="sub"><span class="lvl">ур. 52</span>30–56 phys</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear11.webp" alt=""></div>
+            <div class="meta"><div class="name gold">Helix Spear ★</div><div class="sub"><span class="lvl">ур. 65</span>37–68 phys</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear13.webp" alt=""></div>
+            <div class="meta"><div class="name gold">Stalking Spear ★★</div><div class="sub"><span class="lvl">ур. 77</span>47–79 phys</div></div></div>
+        </div>
+
+        <h3 style="margin-top:18px">Баклер · броня (топ-тиры)</h3>
+        <div class="grid-3">
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Buckler20.webp" alt=""></div>
+            <div class="meta"><div class="name">Aegis → Ancient → Desert Buckler</div><div class="sub">ур. 65–80 · 111–144 Eva</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Basetypes/BodyDex10.webp" alt=""></div>
+            <div class="meta"><div class="name">Smuggler / Strider Vest</div><div class="sub">ур. 51–52 · 271–275 Eva</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Basetypes/BodyDex12.webp" alt=""></div>
+            <div class="meta"><div class="name gold">Exquisite Vest ★</div><div class="sub">ур. 65 · <b>487 Eva</b> (топ)</div></div></div>
+        </div>
+
+        <h3 style="margin-top:18px">Полный скилл-сетап (6L Rake)</h3>
+        <div class="gems">
+          <span class="gem main"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/4k/huntressbloodhunt.webp" alt="">Rake</span>
+          <span class="gem red"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/overpowersupport.webp" alt="">Bleed IV</span>
+          <span class="gem"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/ragesupport.webp" alt="">Martial Tempo</span>
+          <span class="gem red"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/blindsupport.webp" alt="">Brutality</span>
+          <span class="gem"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/steelynervesupport.webp" alt="">Conc. Effect</span>
+          <span class="gem red"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/addedfiredamagesupport.webp" alt="">Inev. Rupture</span>
+        </div>
+        <div class="gems" style="margin-top:6px">
+          <span class="gem main"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/4k/huntressbucklerparry.webp" alt="">Parry</span>
+          <span class="gem red"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/steelynervesupport.webp" alt="">Frenzied Riposte</span>
+          <span class="gem"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/ragesupport.webp" alt="">Persistence</span>
+        </div>
+        <div class="gems" style="margin-top:6px">
+          <span class="gem green"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Gems/New/BloodHuntSkillGem.webp" alt="">Disengage</span>
+          <span class="gem red"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/blindsupport.webp" alt="">Herald of Blood</span>
+          <span class="gem blue"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/addedfiredamagesupport.webp" alt="">Wind Dancer</span>
+          <span class="gem green"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/overpowersupport.webp" alt="">Combat Frenzy</span>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ════════════════════════ VARIANT 2 ════════════════════════ -->
+  <section id="v2">
+    <h2>4. Вариант 2 · Lightning Crit Parry Amazon</h2>
+    <p class="lead">Парирование как сетап-инструмент для крит-окна <b>Lightning Spear</b>. Гибридная защита Eva/ES.</p>
+
+    <article class="variant v2">
+      <header class="head">
+        <div>
+          <h3>Lightning / Crit</h3>
+          <div class="sub">Основной DPS: Lightning Spear · Утилити: Herald of Thunder · Сетап через Parry → Frenzy</div>
+        </div>
+        <div class="badges">
+          <span class="badge blue">Lightning</span>
+          <span class="badge blue">Crit</span>
+          <span class="badge">Eva/ES гибрид</span>
+        </div>
+      </header>
+
+      <!-- STAGE 1 -->
+      <div class="stage">
+        <h4><span class="stamp">Стадия 1 · ур. 1–20</span> Кампания, акт 1–2</h4>
+        <p>Базы оружия/баклера/брони те же, что в Варианте 1 (Hardwood → Winged Spear; Leather → Iron Buckler; Leather Vest → Shrouded Vest). На старте всё одинаковое — отличаются только активные скиллы.</p>
+
+        <h3>Скиллы и сапорты</h3>
+        <div class="gems">
+          <span class="gem main"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Gems/New/StormSpearSkillGem.webp" alt="">Lightning Spear</span>
+          <span class="gem"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/ragesupport.webp" alt="">Martial Tempo</span>
+        </div>
+        <div class="gems">
+          <span class="gem main"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/4k/huntressbucklerparry.webp" alt="">Parry</span>
+          <span class="gem red"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/steelynervesupport.webp" alt="">Frenzied Riposte</span>
+        </div>
+        <div class="gems">
+          <span class="gem green"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Gems/New/BloodHuntSkillGem.webp" alt="">Disengage</span>
+          <span class="gem blue"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/blindsupport.webp" alt="">Orb of Storms</span>
+        </div>
+        <div class="note">Старайтесь брать <b>Combat Frenzy</b> как только откроется — она позволяет генерировать Frenzy-заряды и без парирования, освобождая Parry под защитную роль.</div>
+      </div>
+
+      <!-- STAGE 2 -->
+      <div class="stage">
+        <h4><span class="stamp">Стадия 2 · ур. 20–50</span></h4>
+
+        <h3>Оружие — приоритет crit-имплисит</h3>
+        <div class="grid-4">
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear05.webp" alt=""></div>
+            <div class="meta"><div class="name">War Spear</div><div class="sub"><span class="lvl">ур. 21</span>16–27 phys</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear07.webp" alt=""></div>
+            <div class="meta"><div class="name gold">Barbed Spear ★</div><div class="sub"><span class="lvl">ур. 33</span>6% crit</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear08.webp" alt=""></div>
+            <div class="meta"><div class="name">Broad Spear</div><div class="sub"><span class="lvl">ур. 40</span>32–48 phys</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear09.webp" alt=""></div>
+            <div class="meta"><div class="name gold">Seaglass Spear ★★</div><div class="sub"><span class="lvl">ур. 51</span><b>7% crit</b> · 50 Int</div></div></div>
+        </div>
+
+        <h3 style="margin-top:18px">Гибридная броня Eva/ES</h3>
+        <div class="grid-3">
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Basetypes/BodyDexInt03.webp" alt=""></div>
+            <div class="meta"><div class="name gold">Anchorite Garb</div><div class="sub"><span class="lvl">ур. 33</span>101 Eva / 43 ES</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Basetypes/BodyDexInt05.webp" alt=""></div>
+            <div class="meta"><div class="name gold">Ascetic Garb</div><div class="sub"><span class="lvl">ур. 51</span>133 Eva / 53 ES</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Buckler08.webp" alt=""></div>
+            <div class="meta"><div class="name">Edged → Pearl Buckler</div><div class="sub">ур. 39–50 · 70–87 Eva</div></div></div>
+        </div>
+
+        <h3 style="margin-top:18px">Скилл-сетап</h3>
+        <div class="gems">
+          <span class="gem main"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Gems/New/StormSpearSkillGem.webp" alt="">Lightning Spear</span>
+          <span class="gem"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/ragesupport.webp" alt="">Martial Tempo</span>
+          <span class="gem blue"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/addedfiredamagesupport.webp" alt="">Lightning Infusion</span>
+          <span class="gem blue"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/blindsupport.webp" alt="">Shock Support</span>
+        </div>
+        <div class="gems" style="margin-top:6px">
+          <span class="gem main"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/4k/huntressbucklerparry.webp" alt="">Parry</span>
+          <span class="gem red"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/steelynervesupport.webp" alt="">Frenzied Riposte</span>
+          <span class="gem green"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/overpowersupport.webp" alt="">Combat Frenzy</span>
+        </div>
+        <div class="gems" style="margin-top:6px">
+          <span class="gem green"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Gems/New/BloodHuntSkillGem.webp" alt="">Thunderous Leap</span>
+          <span class="gem blue"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/addedfiredamagesupport.webp" alt="">Herald of Thunder</span>
+          <span class="gem"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/ragesupport.webp" alt="">Wind Dancer</span>
+        </div>
+      </div>
+
+      <!-- STAGE 3 -->
+      <div class="stage">
+        <h4><span class="stamp">Стадия 3 · ур. 50+</span> Эндгейм</h4>
+
+        <h3>Оружие — топ</h3>
+        <div class="grid-4">
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear09.webp" alt=""></div>
+            <div class="meta"><div class="name">Seaglass Spear</div><div class="sub"><span class="lvl">ур. 51</span>7% crit</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear11.webp" alt=""></div>
+            <div class="meta"><div class="name gold">Helix Spear ★</div><div class="sub"><span class="lvl">ур. 65</span>37–68 phys</div></div></div>
+          <div class="item"><div class="ico"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear13.webp" alt=""></div>
+            <div class="meta"><div class="name gold">Stalking Spear ★★</div><div class="sub"><span class="lvl">ур. 77</span>47–79 phys</div></div></div>
+        </div>
+        <div class="note info">Крафт-аффиксы: <b>% Lightning Damage</b>, <b>% Crit Chance</b>, <b>+Lightning to Attacks</b>, <b>Attack Speed</b>.</div>
+
+        <h3 style="margin-top:14px">Полный 6L Lightning Spear</h3>
+        <div class="gems">
+          <span class="gem main"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Gems/New/StormSpearSkillGem.webp" alt="">Lightning Spear</span>
+          <span class="gem blue"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/addedfiredamagesupport.webp" alt="">Lightning Infusion</span>
+          <span class="gem"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/ragesupport.webp" alt="">Martial Tempo</span>
+          <span class="gem blue"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/blindsupport.webp" alt="">Shock</span>
+          <span class="gem"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/overpowersupport.webp" alt="">Inspiration</span>
+          <span class="gem blue"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/steelynervesupport.webp" alt="">Lightning Pen</span>
+        </div>
+        <div class="gems" style="margin-top:6px">
+          <span class="gem main"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/4k/huntressbucklerparry.webp" alt="">Parry</span>
+          <span class="gem red"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/steelynervesupport.webp" alt="">Frenzied Riposte</span>
+          <span class="gem"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/ragesupport.webp" alt="">Persistence</span>
+        </div>
+        <div class="gems" style="margin-top:6px">
+          <span class="gem blue"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/addedfiredamagesupport.webp" alt="">Herald of Thunder</span>
+          <span class="gem"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/blindsupport.webp" alt="">Wind Dancer</span>
+          <span class="gem green"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/support/overpowersupport.webp" alt="">Combat Frenzy</span>
+          <span class="gem purple"><img src="https://cdn.poe2db.tw/image/Art/2DItems/Gems/New/BloodHuntSkillGem.webp" alt="">Cast on Shock</span>
+        </div>
+
+        <div class="note warn">Для 3-й аскенда-ноды в этом варианте выберите <b>Surging Avatar</b> + <b>Elemental Surge</b> — Frenzy-заряды от Parry будут триггерить молниевую волну.</div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ════════════════════════ PASSIVE TREE ════════════════════════ -->
+  <section id="tree">
+    <h2>5. Дерево пассивов</h2>
+    <div class="panel">
+      <div class="note warn">Ссылку <code>poe.ninja/poe2/passive-skill-tree/FBgf3Ci1iYw26kmSBi3VRVh</code> прочитать программно не получилось — это SPA-страница, отдаёт только заголовок. Ниже — карта обязательных нод; распределите точки в редакторе.</div>
+
+      <h3 style="margin-top:16px">Ядро (оба варианта)</h3>
+      <table>
+        <thead><tr><th>Нода / кластер</th><th>Зачем</th></tr></thead>
+        <tbody>
+          <tr><td><b>Stretched Sinews / Heavy Draw</b> <span class="badge">старт Huntress</span></td><td>+Spear damage, +Projectile</td></tr>
+          <tr><td><b>Spear Mastery</b></td><td>specific-skill бонусы для копий</td></tr>
+          <tr><td><b>Acrobatics</b> zone</td><td>% Evasion</td></tr>
+          <tr><td><b>Wind Dancer</b> notable</td><td>% Evasion при движении</td></tr>
+          <tr><td><b>Heartstopper</b></td><td>+Crit Damage</td></tr>
+          <tr><td><b>Resilience / Path of the Hunter</b></td><td>life sustain</td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top:16px">Развилки по варианту</h3>
+      <div class="grid-2">
+        <div class="panel" style="background:linear-gradient(180deg,rgba(195,59,59,.12),rgba(0,0,0,0))">
+          <h4 style="color:#ff9b9b">Вариант 1 · Bleed/Phys</h4>
+          <ul class="tight">
+            <li><b>Thousand Cuts</b> — +Bleed/+Phys</li>
+            <li><b>Inevitable Rupture</b> — bleed на full-hp/moving</li>
+            <li>Кистоун <b>Crimson Assault</b> (бафнут в 0.4.0)</li>
+          </ul>
+        </div>
+        <div class="panel" style="background:linear-gradient(180deg,rgba(74,163,212,.12),rgba(0,0,0,0))">
+          <h4 style="color:#7ec8ee">Вариант 2 · Lightning/Crit</h4>
+          <ul class="tight">
+            <li><b>Static Blows</b> / <b>Heart of Thunder</b> — +Lightning</li>
+            <li><b>Mind over Matter</b> (по желанию, под ES-гибрид)</li>
+            <li>Крит-кластер около <b>Heartstopper</b></li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="margin-top:18px">Чего НЕ брать</h3>
+      <ul class="tight">
+        <li><b>Iron Reflexes</b> — конфликтует со <b>Stalking Panther</b> у Amazon</li>
+        <li><b>Resolute Technique</b> — ломает крит и Penetrate-конверсию</li>
+      </ul>
+
+      <h3 style="margin-top:18px">Порядок прокачки точек</h3>
+      <ol>
+        <li><b>1–20:</b> идём к <i>Spear Mastery</i> + ближайшие life/eva ноды</li>
+        <li><b>20–50:</b> добираем Bleed-кластер (В1) или Lightning-кластер (В2), потом крит</li>
+        <li><b>50+:</b> финализируем — <i>Inevitable Rupture</i> + Mastery (В1), или <i>Heart of Thunder</i> + Heartstopper (В2)</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ COMPARE ════════════════════════ -->
+  <section id="compare">
+    <h2>6. Сравнение билдов</h2>
+    <div class="panel">
+      <table class="compare">
+        <thead><tr><th>Параметр</th><th>Вариант 1 · Bleed/Phys</th><th>Вариант 2 · Lightning/Crit</th></tr></thead>
+        <tbody>
+          <tr><td>Главный скилл</td><td>Rake / Spearfield</td><td>Lightning Spear</td></tr>
+          <tr><td>Тип урона</td><td>Phys + Bleed DoT</td><td>Lightning + Shock + Crit</td></tr>
+          <tr><td>Защита</td><td>Pure Evasion</td><td>Eva/ES гибрид (+ MoM опц.)</td></tr>
+          <tr><td>Аскенда (3-я нода)</td><td>Penetrate</td><td>Surging Avatar → Elemental Surge</td></tr>
+          <tr><td>Имплисит копья</td><td>Spiked / Jagged (bleed)</td><td>Seaglass (high crit)</td></tr>
+          <tr><td>Спайк-момент</td><td>Parry → Disengage → bleed-окно</td><td>Parry → Frenzy → crit-burst</tr>
+          <tr><td>Сложность</td><td>Средняя</td><td>Выше (управление зарядами + шок)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ SOURCES ════════════════════════ -->
+  <section id="sources">
+    <h2>7. Источники</h2>
+    <div class="panel">
+      <ul class="tight">
+        <li><a href="https://poe2db.tw/us/Amazon" target="_blank">poe2db · Amazon Ascendancy</a></li>
+        <li><a href="https://poe2db.tw/us/Parry" target="_blank">poe2db · Parry skill</a></li>
+        <li><a href="https://poe2db.tw/us/Huntress" target="_blank">poe2db · Huntress class</a></li>
+        <li><a href="https://maxroll.gg/poe2/build-guides/spear-huntress-leveling-guide" target="_blank">Maxroll · Spear Huntress Leveling Guide</a></li>
+        <li><a href="https://maxroll.gg/poe2/build-guides/bleed-rake-amazon-build-guide" target="_blank">Maxroll · Bleed Rake Amazon</a></li>
+        <li><a href="https://deltiasgaming.com/path-of-exile-2-lightning-spear-amazon-build/" target="_blank">Deltia's Gaming · Lightning Spear Amazon</a></li>
+        <li><a href="https://www.poe-vault.com/poe2/huntress/amazon/lightning-spear-build-guide" target="_blank">PoE Vault · Lightning Spear Endgame</a></li>
+        <li><a href="https://www.pathofexile.com/forum/view-thread/3898950" target="_blank">PoE Forum · Parry Abusing Explosive Spear Amazon</a></li>
+        <li><a href="https://poe.ninja/poe2/passive-skill-tree/FBgf3Ci1iYw26kmSBi3VRVh" target="_blank">Ваше дерево пассивов · poe.ninja</a></li>
+      </ul>
+    </div>
+  </section>
+
+  </main>
+</div>
+
+<footer>
+  Гайд собран на основе данных <a href="https://poe2db.tw/us/" target="_blank">poe2db.tw</a> и публичных гайдов. Иконки — CDN poe2db.tw.<br>
+  Path of Exile 2 © Grinding Gear Games. Сгенерировано: 2026-05-16.
+</footer>
+
+</body>
+</html>

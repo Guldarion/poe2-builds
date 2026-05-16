@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PoE 2 Builds · Guldarion's Hub</title>
+<style>
+  :root{
+    --bg:#0e0f12;
+    --bg-2:#161821;
+    --bg-3:#1d2030;
+    --line:#2a2e44;
+    --text:#e7e5dc;
+    --muted:#9a98a6;
+    --gold:#d4a24a;
+    --gold-2:#f4cf78;
+    --red:#c33b3b;
+    --blue:#4aa3d4;
+    --shadow:0 10px 30px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.55}
+  a{color:var(--gold-2);text-decoration:none}
+  h1,h2{font-family:"Cinzel","Trajan Pro",Georgia,serif;letter-spacing:.5px}
+
+  .hero{
+    padding:80px 24px 40px;
+    background:
+      radial-gradient(900px 360px at 50% -100px,rgba(212,162,74,.20),transparent 60%),
+      linear-gradient(180deg,#0a0b0e 0%,#15161d 100%);
+    border-bottom:1px solid var(--line);
+    text-align:center;
+  }
+  .hero h1{font-size:42px;margin:0 0 8px;color:var(--gold-2);text-shadow:0 2px 0 rgba(0,0,0,.5)}
+  .hero p{color:var(--muted);max-width:680px;margin:0 auto;font-size:17px}
+  .crumb{color:var(--muted);font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:36px 24px 80px}
+  h2{font-size:22px;color:var(--gold);border-bottom:1px solid var(--line);padding-bottom:10px;margin:0 0 18px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+  .card{
+    display:block;
+    background:linear-gradient(180deg,var(--bg-2) 0%,var(--bg-3) 100%);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:22px;
+    transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+    box-shadow:var(--shadow);
+    color:var(--text);
+  }
+  .card:hover{transform:translateY(-3px);border-color:rgba(212,162,74,.55);box-shadow:0 16px 36px rgba(0,0,0,.55)}
+  .card .top{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+  .card .ico{width:56px;height:56px;border-radius:50%;background:radial-gradient(circle at 40% 30%,#3c2d18,#0b0b0d 70%);
+    display:grid;place-items:center;border:2px solid var(--gold);box-shadow:0 0 20px rgba(212,162,74,.3)}
+  .card .ico img{width:38px;height:38px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.7))}
+  .card .name{font-family:"Cinzel",Georgia,serif;font-size:18px;color:var(--gold-2);margin:0}
+  .card .role{color:var(--muted);font-size:12px;margin-top:2px;letter-spacing:1.5px;text-transform:uppercase}
+  .card .desc{color:#cfcec6;font-size:14px;margin:6px 0 12px}
+  .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .tag{padding:4px 10px;border:1px solid var(--line);background:rgba(0,0,0,.25);border-radius:999px;font-size:11px;color:var(--muted)}
+  .tag.red{color:#ff9b9b;border-color:rgba(195,59,59,.45)}
+  .tag.blue{color:#7ec8ee;border-color:rgba(74,163,212,.45)}
+
+  .soon{opacity:.5;pointer-events:none}
+  .soon .name{color:var(--muted)}
+
+  footer{border-top:1px solid var(--line);padding:24px;margin-top:60px;color:var(--muted);font-size:13px;text-align:center;background:var(--bg-2)}
+  footer a{color:var(--gold-2)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="crumb">Path of Exile 2</div>
+  <h1>Guldarion's Build Hub</h1>
+  <p>Коллекция гайдов по билдам Path of Exile 2 — баз оружия, брони, скилл-сетапов и направлений по дереву пассивов.</p>
+</header>
+
+<div class="wrap">
+  <h2>Гайды</h2>
+  <div class="grid">
+
+    <a class="card" href="amazon_parry.html">
+      <div class="top">
+        <div class="ico"><img src="https://cdn.poe2db.tw/image/art/2dart/skillicons/4k/huntressbucklerparry.webp" alt=""></div>
+        <div>
+          <div class="name">Amazon Parry Spear</div>
+          <div class="role">Huntress · Amazon</div>
+        </div>
+      </div>
+      <p class="desc">Копейщица с активным использованием механики Parry. Два варианта развития по 3 стадиям прокачки.</p>
+      <div class="tags">
+        <span class="tag red">Bleed / Phys</span>
+        <span class="tag blue">Lightning / Crit</span>
+        <span class="tag">1–90+</span>
+      </div>
+    </a>
+
+    <div class="card soon">
+      <div class="top">
+        <div class="ico" style="border-color:var(--muted);box-shadow:none"></div>
+        <div>
+          <div class="name">Скоро…</div>
+          <div class="role">In progress</div>
+        </div>
+      </div>
+      <p class="desc">Здесь появятся следующие гайды.</p>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  Создано <a href="https://github.com/Guldarion" target="_blank">Guldarion</a> · Исходники: <a href="https://github.com/Guldarion/poe2-builds" target="_blank">github.com/Guldarion/poe2-builds</a><br>
+  Иконки — CDN <a href="https://poe2db.tw/us/" target="_blank">poe2db.tw</a>. Path of Exile 2 © Grinding Gear Games.
+</footer>
+
+</body>
+</html>
