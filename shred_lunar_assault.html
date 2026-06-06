@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shred Lunar Assault Shaman — Гайд по билду | PoE 2</title>
+<style>
+  :root{
+    --bg:#0e0f12; --bg-2:#161821; --bg-3:#1d2030; --line:#2a2e44;
+    --text:#e7e5dc; --muted:#9a98a6; --gold:#d4a24a; --gold-2:#f4cf78;
+    --red:#c33b3b; --green:#5aa861; --blue:#4aa3d4; --ice:#7ec8ee; --purple:#9b7fd6;
+    --shadow:0 10px 30px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;font-size:15px;line-height:1.55}
+  a{color:var(--gold-2);text-decoration:none;border-bottom:1px dotted rgba(244,207,120,.35)}
+  a:hover{color:#fff;border-bottom-color:#fff}
+  h1,h2,h3,h4{font-family:"Cinzel","Trajan Pro",Georgia,serif;letter-spacing:.5px}
+  h1{font-size:34px;margin:0 0 6px;color:var(--gold-2);text-shadow:0 2px 0 rgba(0,0,0,.5)}
+  h2{font-size:24px;margin:0 0 16px;color:var(--gold);border-bottom:1px solid var(--line);padding-bottom:10px}
+  h3{font-size:18px;margin:0 0 10px;color:#fff}
+  h4{font-size:14px;margin:0 0 8px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+
+  .hero{position:relative;padding:60px 24px 50px;
+    background:radial-gradient(1100px 400px at 70% -100px,rgba(126,200,238,.18),transparent 60%),linear-gradient(180deg,#0a0b0e 0%,#15161d 100%);
+    border-bottom:1px solid var(--line)}
+  .hero-inner{max-width:1180px;margin:0 auto;display:flex;gap:30px;align-items:center;flex-wrap:wrap}
+  .hero-art{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 40% 30%,#1d3548,#0b0b0d 70%);
+    display:grid;place-items:center;border:2px solid var(--ice);box-shadow:0 0 40px rgba(126,200,238,.35),inset 0 0 30px rgba(0,0,0,.7)}
+  .hero-art img{width:92px;height:92px;filter:drop-shadow(0 4px 6px rgba(0,0,0,.7))}
+  .hero-text{flex:1;min-width:260px}
+  .crumb{color:var(--muted);font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+  .tagline{color:var(--muted);font-size:16px;margin:6px 0 14px;max-width:720px}
+  .badges{display:flex;flex-wrap:wrap;gap:8px}
+  .badge{padding:5px 11px;border:1px solid var(--line);background:var(--bg-2);border-radius:999px;font-size:12px;color:var(--muted)}
+  .badge.ice{color:var(--ice);border-color:rgba(126,200,238,.45)}
+  .badge.gold{color:var(--gold-2);border-color:rgba(212,162,74,.45)}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:30px 24px 80px;display:grid;grid-template-columns:220px 1fr;gap:36px}
+  @media(max-width:880px){.wrap{grid-template-columns:1fr}.toc{display:none}}
+  .toc{position:sticky;top:18px;align-self:start;padding:18px 14px;background:var(--bg-2);border:1px solid var(--line);border-radius:10px;font-size:13px}
+  .toc h4{margin:0 0 10px;color:var(--gold)}
+  .toc ol{list-style:none;padding:0;margin:0;counter-reset:t}
+  .toc li{counter-increment:t;padding:5px 0;border-bottom:1px dashed rgba(255,255,255,.05)}
+  .toc li:last-child{border-bottom:0}
+  .toc li::before{content:counter(t,decimal-leading-zero);color:var(--gold);font-weight:600;margin-right:8px;font-family:monospace}
+  .toc a{color:var(--text);border:0}
+  .toc a:hover{color:var(--gold-2)}
+
+  section{margin-bottom:40px;scroll-margin-top:18px}
+  .lead{font-size:16px;color:#cfcec6}
+  .panel{background:linear-gradient(180deg,var(--bg-2) 0%,var(--bg-3) 100%);border:1px solid var(--line);border-radius:10px;padding:20px;box-shadow:var(--shadow)}
+  .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+
+  .item{display:flex;gap:12px;padding:12px;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:8px;align-items:center}
+  .item .ico{flex:0 0 52px;height:52px;border-radius:6px;background:radial-gradient(circle at 50% 30%,#1f2538,#08090d 80%);display:grid;place-items:center;border:1px solid var(--line)}
+  .item .ico img{max-width:46px;max-height:46px;filter:brightness(1.15) drop-shadow(0 2px 3px rgba(0,0,0,.7))}
+  .item .meta{flex:1;min-width:0}
+  .item .name{font-weight:600;color:#fff;font-size:14px;margin-bottom:2px}
+  .item .name.gold{color:var(--gold-2)}
+  .item .sub{color:var(--muted);font-size:12px;line-height:1.45}
+
+  .slots{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-top:10px}
+  .slot{background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px}
+  .slot-main{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--line);border-radius:8px;background:linear-gradient(90deg,rgba(126,200,238,.14),rgba(0,0,0,.25));position:relative}
+  .slot-main.set1{background:linear-gradient(90deg,rgba(212,162,74,.14),rgba(0,0,0,.25))}
+  .slot-main .ico-wrap{flex:0 0 44px;width:44px;height:44px;border-radius:8px;background:radial-gradient(circle at 50% 30%,#26314a,#0a0a0d 80%);border:1px solid rgba(255,255,255,.1);display:grid;place-items:center}
+  .slot-main .ico-wrap img{width:38px;height:38px;filter:brightness(1.2) contrast(1.05)}
+  .slot-main .nm{font-weight:700;color:#fff;font-size:14px;flex:1;min-width:0}
+  .slot-main .nm small{display:block;font-weight:400;color:var(--muted);font-size:11px;margin-top:2px}
+  .set-tag{position:absolute;top:-8px;right:-6px;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.4px}
+  .set-tag.s1{background:var(--gold);color:#1a1108}
+  .set-tag.s2{background:var(--ice);color:#06121a}
+  .slot-supports{display:flex;flex-direction:column;gap:5px}
+  .slot-support{display:flex;align-items:center;gap:9px;padding:6px 10px;border-radius:6px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05)}
+  .slot-support .ico-wrap{flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 50% 30%,#1f2538,#08090d 80%);border:1px solid rgba(255,255,255,.08);display:grid;place-items:center}
+  .slot-support .ico-wrap img{width:24px;height:24px;filter:brightness(1.2)}
+  .slot-support .nm{font-size:12.5px;color:#dcdacf}
+  .slot-support .nm small{color:var(--muted);font-size:10.5px;margin-left:4px}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 0}
+  th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--gold);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.5px;background:rgba(0,0,0,.2)}
+  tr:hover td{background:rgba(126,200,238,.05)}
+  td b{color:#fff}
+
+  .note{border-left:3px solid var(--ice);background:rgba(126,200,238,.08);padding:12px 14px;border-radius:0 8px 8px 0;color:#dcdacf;font-size:13px;margin:10px 0}
+  .note.warn{border-left-color:var(--red);background:rgba(195,59,59,.08)}
+  .note.gold{border-left-color:var(--gold);background:rgba(212,162,74,.07)}
+
+  ul.tight{margin:0 0 0 18px;padding:0}
+  ul.tight li{margin-bottom:5px}
+  ol.steps{margin:0 0 0 18px;padding:0}
+  ol.steps li{margin-bottom:7px}
+  ol.steps b{color:var(--ice)}
+
+  .pc{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:600px){.pc{grid-template-columns:1fr}}
+  .pc .col h4{margin-bottom:8px}
+  .pc .pro{color:#9dd5a4}.pc .con{color:#ff9b9b}
+
+  footer{border-top:1px solid var(--line);padding:24px;margin-top:40px;color:var(--muted);font-size:13px;text-align:center;background:var(--bg-2)}
+  footer a{color:var(--gold-2)}
+  .en{font-style:normal}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-art"><img src="img/Art/2DItems/Gems/New/DruidFrozenClawsSkillGem.webp" alt="Shred"></div>
+    <div class="hero-text">
+      <div class="crumb">Path of Exile 2 · Druid · Shaman</div>
+      <h1>Shred Lunar Assault Shaman</h1>
+      <p class="tagline">Эндгейм-билд оборотня: поддерживаете 100% аптайм перевоплощения, замораживаете врагов и рвёте их в ближнем бою. Высокий single-target урон и мощнейшая заморозка через связки скиллов.</p>
+      <div class="badges">
+        <span class="badge ice">Cold / Freeze</span>
+        <span class="badge ice">Werewolf / Shapeshift</span>
+        <span class="badge">Melee</span>
+        <span class="badge gold">Endgame</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="toc">
+    <h4>Содержание</h4>
+    <ol>
+      <li><a href="#overview">Обзор</a></li>
+      <li><a href="#proscons">Плюсы и минусы</a></li>
+      <li><a href="#ascendancy">Ascendancy</a></li>
+      <li><a href="#skills">Skill links</a></li>
+      <li><a href="#rotation">Ротация в бою</a></li>
+      <li><a href="#gear">Снаряжение</a></li>
+      <li><a href="#jewels">Jewels и Flasks</a></li>
+      <li><a href="#tree">Дерево пассивов</a></li>
+      <li><a href="#source">Источник</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <h2>1. Обзор билда</h2>
+    <div class="panel">
+      <p class="lead">«Рви врагов на части в облике оборотня». Билд держит постоянный аптайм перевоплощения и сочетает <b class="en">Freeze</b> с уроном в ближнем бою, добивая замороженных врагов через выверенные комбо.</p>
+      <div class="note gold" style="margin-top:14px">
+        <b>Идея в двух словах:</b> <b class="en">Pounce</b> сближает и вешает <b class="en">Freezing Mark</b> → <b class="en">Lunar Assault</b> замораживает → <b class="en">Shred</b> создаёт <b class="en">Ice Fragments</b> на замороженной цели → <b class="en">Cross Slash</b> детонирует их в огромный бёрст. <b class="en">Herald of Ice</b> разносит заморозку по экрану.
+      </div>
+      <table style="margin-top:14px">
+        <tr><th>Класс</th><td><b class="en">Druid</b></td></tr>
+        <tr><th>Ascendancy</th><td><b class="en">Shaman</b></td></tr>
+        <tr><th>Главный скилл</th><td><b class="en">Shred</b> (werewolf) + <b class="en">Cross Slash</b> детонатор</td></tr>
+        <tr><th>Тип урона</th><td>Physical → Cold, заморозка + детонация <b class="en">Ice Fragments</b></td></tr>
+        <tr><th>Защита</th><td><b class="en">Energy Shield</b> + Armour гибрид (вплоть до <b class="en">Chaos Inoculation</b> в эндгейме)</td></tr>
+        <tr><th>Стиль</th><td>Быстрая комбо-игра с перевоплощением и weapon-swap</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- PROS / CONS -->
+  <section id="proscons">
+    <h2>2. Плюсы и минусы</h2>
+    <div class="panel">
+      <div class="pc">
+        <div class="col">
+          <h4 class="pro">Сильные стороны</h4>
+          <ul class="tight">
+            <li class="pro">Отличный single-target урон</li>
+            <li class="pro">Экстремально мощная заморозка (<b class="en">Freeze</b>)</li>
+            <li class="pro">Быстрый, динамичный геймплей</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h4 class="con">Слабые стороны</h4>
+          <ul class="tight">
+            <li class="con">Комбо-механика требует практики, чтобы освоить</li>
+            <li class="con">Зависимость от weapon-swap (нужно держать оба сета осмысленно)</li>
+            <li class="con">Дорогой полный эндгейм (уники + <b class="en">Chaos Inoculation</b>)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ASCENDANCY -->
+  <section id="ascendancy">
+    <h2>3. Ascendancy — Shaman</h2>
+    <div class="panel">
+      <p>Порядок узлов возвышения (названия — игровые):</p>
+      <div class="grid-2" style="margin-top:12px">
+        <div class="item"><div class="ico"><b style="color:var(--gold);font-family:Cinzel,serif">1</b></div>
+          <div class="meta"><div class="name gold en">Reactive Growth</div><div class="sub">−10% получаемого elemental-урона; накопление стаков <b class="en">Adaptation</b>.</div></div></div>
+        <div class="item"><div class="ico"><b style="color:var(--gold);font-family:Cinzel,serif">2</b></div>
+          <div class="meta"><div class="name gold en">Avatar of Evolution</div><div class="sub">Удваивает эффекты <b class="en">Adaptation</b>; конвертирует 15% Physical → Elemental.</div></div></div>
+        <div class="item"><div class="ico"><b style="color:var(--gold);font-family:Cinzel,serif">3</b></div>
+          <div class="meta"><div class="name gold en">Turning of the Seasons</div><div class="sub">Накладывает <b class="en">Exposure</b>; +10% урона случайным элементом.</div></div></div>
+        <div class="item"><div class="ico"><b style="color:var(--gold);font-family:Cinzel,serif">4</b></div>
+          <div class="meta"><div class="name gold en">Sacred Flow</div><div class="sub">До <b>120 Spirit</b> от пустых charm-слотов (нужно 3 максимальных слота).</div></div></div>
+      </div>
+      <div class="note" style="margin-top:12px"><b class="en">Sacred Flow</b> работает только с <b>пустыми</b> charm-слотами — не занимайте их, иначе потеряете Spirit.</div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <h2>4. Skill links</h2>
+    <p class="lead">Метки <span class="set-tag s1" style="position:static">SET 1</span> и <span class="set-tag s2" style="position:static">SET 2</span> — это привязка к наборам оружия (weapon swap). Привяжите оба оружия к обоим сетам, чтобы не нужны были дубликаты.</p>
+
+    <div class="slots">
+
+      <div class="slot">
+        <div class="slot-main set1"><span class="set-tag s1">SET 1</span>
+          <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/DruidFrozenClawsSkillGem.webp" alt=""></div>
+          <span class="nm en">Shred<small>главный урон (werewolf)</small></span>
+        </div>
+        <div class="slot-supports">
+          <div class="slot-support"><div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/IceBiteSupportGem.webp" alt=""></div><span class="nm en">Ice Bite II</span></div>
+          <div class="slot-support"><div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/AddedColdDamageSupportGem.webp" alt=""></div><span class="nm en">Added Cold Damage</span></div>
+          <div class="slot-support"><div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/AddedHeftSupportGem.webp" alt=""></div><span class="nm en">Heft</span></div>
+          <div class="slot-support"><div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/ColdPenetrationSupportGem.webp" alt=""></div><span class="nm en">Cold Penetration</span></div>
+        </div>
+        <div class="note" style="margin:6px 0 0">5-й сокет <b class="en">Shred</b> открывается автоматически на <b>90 уровне</b>.</div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-main"><span class="set-tag s2">SET 2</span>
+          <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/DruidLunarAssaultSkillGem.webp" alt=""></div>
+          <span class="nm en">Lunar Assault<small>заморозка цели</small></span>
+        </div>
+        <div class="slot-supports">
+          <div class="slot-support"><div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/IceBiteSupportGem.webp" alt=""></div><span class="nm en">Ice Bite II <small>→ заменить на Bhatair's Vengeance</small></span></div>
+          <div class="slot-support"><div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/AddedColdDamageSupportGem.webp" alt=""></div><span class="nm en">Added Cold Damage</span></div>
+          <div class="slot-support"><div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/ColdMasterySupportGem.webp" alt=""></div><span class="nm en">Cold Mastery</span></div>
+        </div>
+        <div class="note" style="margin:6px 0 0">Альтернатива: lineage-гем <b class="en">Atalui's Bloodletting</b> в <b class="en">Lunar Assault</b>.</div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-main set1"><span class="set-tag s1">SET 1</span>
+          <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/DruidCrossSlashSkillGem.webp" alt=""></div>
+          <span class="nm en">Cross Slash<small>детонатор Ice Fragments</small></span>
+        </div>
+        <div class="slot-supports">
+          <div class="slot-support"><div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/ConcentratedEffectSupportGem.webp" alt=""></div><span class="nm en">Concentrated Effect</span></div>
+          <div class="slot-support"><div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/BrutalitySupportGem.webp" alt=""></div><span class="nm en">Brutality</span></div>
+          <div class="slot-support"><div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/AddedColdDamageSupportGem.webp" alt=""></div><span class="nm en">Added Cold Damage</span></div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-main"><span class="set-tag s2">SET 2</span>
+          <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/HeraldofIceSkillGem.webp" alt=""></div>
+          <span class="nm en">Herald of Ice<small>clear / эхо заморозки</small></span>
+        </div>
+        <div class="slot-supports">
+          <div class="slot-support"><div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/ColdPenetrationSupportGem.webp" alt=""></div><span class="nm en">Cold Penetration</span></div>
+          <div class="slot-support"><div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/AddedColdDamageSupportGem.webp" alt=""></div><span class="nm en">Added Cold Damage</span></div>
+          <div class="slot-support"><div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/ConcentratedEffectSupportGem.webp" alt=""></div><span class="nm en">Concentrated Effect</span></div>
+        </div>
+        <div class="note" style="margin:6px 0 0">Главный приоритет на <b>6-link</b> (по гайду): <b class="en">Herald of Ice</b> → <b class="en">Lunar Assault</b> → <b class="en">Pounce</b> → <b class="en">Cross Slash</b> → <b class="en">Lunar Blessing</b>.</div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-main set1"><span class="set-tag s1">SET 1</span>
+          <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/DruidLunarBlessingSkillGem.webp" alt=""></div>
+          <span class="nm en">Lunar Blessing<small>бафф</small></span>
+        </div>
+        <div class="slot-supports">
+          <div class="slot-support"><div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/NewSupport/AddedHeftSupportGem.webp" alt=""></div><span class="nm en">Heft</span></div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-main set1"><span class="set-tag s1">SET 1</span>
+          <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/DruidWildBeastSkillGem.webp" alt=""></div>
+          <span class="nm en">Savage Fury<small>бафф ярости</small></span>
+        </div>
+        <div class="slot-supports">
+          <div class="slot-support" style="opacity:.7"><div class="ico-wrap"></div><span class="nm">по вкусу / damage support</span></div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-main"><span class="set-tag s2">GAP</span>
+          <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/WolfLeapAttackSkillGem.webp" alt=""></div>
+          <span class="nm en">Pounce<small>сближение + Freezing Mark</small></span>
+        </div>
+        <div class="slot-supports">
+          <div class="slot-support"><div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/FreezingMarkSkillGem.webp" alt=""></div><span class="nm en">Freezing Mark <small>(применяется через Pounce)</small></span></div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-main"><span class="set-tag s1" style="background:var(--red);color:#fff">BUFF</span>
+          <div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/CeaselessRage.webp" alt=""></div>
+          <span class="nm en">Eternal Rage<small>генерация Rage</small></span>
+        </div>
+        <div class="slot-supports">
+          <div class="slot-support"><div class="ico-wrap"><img src="img/Art/2DItems/Gems/New/BeserkSkillGem.webp" alt=""></div><span class="nm en">Berserk <small>(усиление урона от Rage)</small></span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ROTATION -->
+  <section id="rotation">
+    <h2>5. Ротация в бою (босс)</h2>
+    <div class="panel">
+      <ol class="steps">
+        <li><b class="en">Pounce</b> — сблизиться и наложить <b class="en">Freezing Mark</b>.</li>
+        <li><b class="en">Lunar Assault</b> — заморозить цель.</li>
+        <li>Когда цель заморожена — активировать <b class="en">Lunar Blessing</b> и <b class="en">Savage Fury</b>.</li>
+        <li><b class="en">Shred</b> по замороженному врагу — создаёт <b class="en">Ice Fragments</b>.</li>
+        <li><b class="en">Cross Slash</b> — детонировать фрагменты (финишер).</li>
+      </ol>
+      <div class="note" style="margin-top:12px">
+        <b class="en">Ice Fragments</b> от <b class="en">Shred</b> по замороженной цели живут <b>2.5 сек</b> — детонируйте их через <b class="en">Cross Slash</b> примерно на <b>2-й секунде</b> для максимального урона.
+      </div>
+      <div class="note warn" style="margin-top:8px">
+        Если враг выжил и ещё заморожен — снова <b class="en">Pounce</b> после <b class="en">Cross Slash</b> и повторите цикл <b class="en">Shred → Cross Slash</b>.
+      </div>
+    </div>
+  </section>
+
+  <!-- GEAR -->
+  <section id="gear">
+    <h2>6. Снаряжение</h2>
+    <div class="panel">
+      <h3 style="margin-top:0">Ключевые уники и базы</h3>
+      <div class="grid-2">
+        <div class="item"><div class="ico"><img src="img/Art/2DItems/Armours/Helmets/Uniques/CrownOfEyes.webp" alt=""></div>
+          <div class="meta"><div class="name gold en">Crown of Eyes</div><div class="sub">Шлем (обязательный уник). Конвертирует Spell Damage в Attack Damage.</div></div></div>
+        <div class="item"><div class="ico"><img src="img/Art/2DItems/Armours/BodyArmours/Basetypes/BodyIntStr04.webp" alt=""></div>
+          <div class="meta"><div class="name gold en">Conjurer Mantle</div><div class="sub">Нагрудник (важный). База ES/Armour.</div></div></div>
+      </div>
+
+      <h3 style="margin-top:18px">Оружие и слоты — приоритеты аффиксов</h3>
+      <table>
+        <thead><tr><th>Слот</th><th>База / уник</th><th>Ключевые аффиксы</th></tr></thead>
+        <tbody>
+          <tr><td>Weapon</td><td><b class="en">Maji Talisman</b> <span style="color:var(--muted)">(важная база)</span></td><td>% Physical Damage, +# Physical Damage, Damage as extra Physical, Attack Speed, шанс <b class="en">Onslaught</b> on Kill</td></tr>
+          <tr><td>Helmet</td><td><b class="en">Crown of Eyes</b> <span style="color:var(--gold-2)">(уник)</span></td><td>Spell→Attack конверсия</td></tr>
+          <tr><td>Body</td><td><b class="en">Conjurer Mantle</b></td><td>ES, Armour, Life</td></tr>
+          <tr><td>Boots</td><td><b class="en">Sakhema Sandals</b> <span style="color:var(--muted)">(опц.)</span></td><td>Movement Speed, ES Recharge Rate, % ES</td></tr>
+          <tr><td>Gloves</td><td><b class="en">Massive Mitts</b> <span style="color:var(--muted)">(опц.)</span></td><td>+# Melee Skill Levels, Attack Speed, % Armour</td></tr>
+          <tr><td>Amulet</td><td><b class="en">Solar Amulet</b> <span style="color:var(--muted)">(опц.)</span></td><td>+# Melee Skills, +# Spirit, Maximum Life</td></tr>
+          <tr><td>Rings ×2</td><td><b class="en">Amethyst Ring</b> <span style="color:var(--muted)">(опц.)</span></td><td>Maximum Life, Lightning/Physical Damage</td></tr>
+          <tr><td>Belt</td><td><b class="en">Plate Belt</b> <span style="color:var(--muted)">(важный)</span></td><td>Maximum Life, Armour, Stun Threshold</td></tr>
+        </tbody>
+      </table>
+
+      <div class="note warn" style="margin-top:12px">
+        <b>Резисты:</b> все elemental-резисты <b>обязаны</b> быть в капе (75%), а Chaos Resistance — близко к капу.
+      </div>
+
+      <h3 style="margin-top:18px">Приоритет атрибутов</h3>
+      <ul class="tight">
+        <li>Сначала закрываем требования гемов (Str / Dex / Int).</li>
+        <li>Излишек — в <b class="en">Strength</b> для скейла Life.</li>
+      </ul>
+
+      <div class="note" style="margin-top:10px">
+        Прочие уники в сборке: <b class="en">Dialla's Desire</b> (альтернатива lineage-саппорта) и <b class="en">Atalui's Bloodletting</b> (lineage-гем для <b class="en">Lunar Assault</b>).
+      </div>
+    </div>
+  </section>
+
+  <!-- JEWELS / FLASKS -->
+  <section id="jewels">
+    <h2>7. Jewels и Flasks</h2>
+    <div class="panel">
+      <div class="grid-2">
+        <div>
+          <h4>Jewels (уники)</h4>
+          <ul class="tight">
+            <li><b class="en">Megalomaniac</b> — ноды на damage / attack / skill speed</li>
+            <li><b class="en">From Nothing</b> + <b class="en">Chaos Inoculation</b> — продвинутый сетап</li>
+            <li><b class="en">Controlled Metamorphosis</b> — большой радиус, малый штраф к резистам</li>
+          </ul>
+          <h4 style="margin-top:12px">Jewels (рарные)</h4>
+          <ul class="tight">
+            <li>Life/Mana recovery on Kill</li>
+            <li>Increased Damage while Shapeshifted</li>
+            <li>Ailment Magnitude</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Flasks</h4>
+          <ul class="tight">
+            <li><b class="en">Lavianga's Spirits</b> — обязательная mana-фласка</li>
+            <li><b class="en">Olroth's Resolve</b> — защитный буст</li>
+            <li>Life/Mana фласки с increased recovery и charge-модами</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TREE -->
+  <section id="tree">
+    <h2>8. Дерево пассивов</h2>
+    <div class="panel">
+      <h3 style="margin-top:0">Стартовый путь</h3>
+      <ul class="tight">
+        <li><b class="en">Bestial Rage</b>, <b class="en">Chillproof</b>, <b class="en">Silent Guardian</b> (для обоих weapon-сетов)</li>
+        <li>Сокет под <b class="en">Controlled Metamorphosis</b> рядом с <b class="en">Investing Energies</b></li>
+      </ul>
+
+      <h3 style="margin-top:16px">Продвинутый путь (95+ уровень)</h3>
+      <ul class="tight">
+        <li><b class="en">From Nothing</b> + <b class="en">Chaos Inoculation</b></li>
+        <li><b class="en">Heavy Frost</b>, <b class="en">Shimmering Mirage</b>, <b class="en">Abasement</b>, <b class="en">Thin Ice</b></li>
+        <li><b class="en">Chakra of Elements</b>, <b class="en">Pure Chaos</b>, <b class="en">Tempered Mind</b></li>
+        <li><b class="en">Lavianga's Brew</b> (опционально, при смене lineage-гемов)</li>
+      </ul>
+
+      <div class="note" style="margin-top:12px">
+        Тонкости Spirit: при нехватке можно отказаться от <b class="en">Herbalism I</b> и <b class="en">Cool Headed</b>.
+        Для серьёзного вложения рекомендуется конверсия через <b class="en">From Nothing</b> (<b class="en">Controlled Metamorphosis</b> alternative).
+      </div>
+
+      <div class="note warn" style="margin-top:8px">
+        Полное дерево, точные ноды и порядок прокачки смотрите в первоисточнике (ссылка ниже) — там интерактивный планер. Для кампании автор отсылает к <b class="en">Wyvern Druid Leveling Build</b>.
+      </div>
+    </div>
+  </section>
+
+  <!-- SOURCE -->
+  <section id="source">
+    <h2>9. Источник</h2>
+    <div class="panel">
+      <p>Билд адаптирован и переведён с гайда:</p>
+      <ul class="tight">
+        <li><a href="https://www.poe-vault.com/poe2/druid/shaman/shred-lunar-assault-build-guide" target="_blank" rel="noopener">Shred Lunar Assault Shaman Build Guide — PoE Vault</a></li>
+      </ul>
+      <p style="color:var(--muted);font-size:13px;margin-top:10px">Названия предметов, скиллов, саппортов и пассивных нод оставлены на английском (как в игре). Описания и советы переведены на русский. Иконки — CDN poe2db.tw.</p>
+    </div>
+  </section>
+
+  </main>
+</div>
+
+<footer>
+  Создано <a href="https://github.com/Guldarion" target="_blank">Guldarion</a> · Исходники: <a href="https://github.com/Guldarion/poe2-builds" target="_blank">github.com/Guldarion/poe2-builds</a><br>
+  Path of Exile 2 © Grinding Gear Games.
+</footer>
+
+</body>
+</html>
